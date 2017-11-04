@@ -32,7 +32,7 @@ const common = {
       include: PATHS.src,
     }, {
       test: /\.(jpg|jpeg|png|svg)$/,
-      loader: 'file',
+      loader: 'file-loader',
       include: PATHS.src,
     }, {
       test: /\.jsx?$/,
