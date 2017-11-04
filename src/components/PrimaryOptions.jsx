@@ -5,7 +5,6 @@ import React from 'react';
 import TextField from 'material-ui/TextField';
 import Paper from 'material-ui/Paper';
 import ActionSearch from 'material-ui/svg-icons/action/search';
-import IconButton from 'material-ui/IconButton';
 import SelectField from 'material-ui/SelectField';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
@@ -15,17 +14,6 @@ import ActionHome from 'material-ui/svg-icons/action/home';
 import ActionPregnantWoman from 'material-ui/svg-icons/action/pregnant-woman';
 import ActionVisibility from 'material-ui/svg-icons/action/visibility';
 import PlacesChildCare from 'material-ui/svg-icons/places/child-care';
-import SocialPerson from 'material-ui/svg-icons/social/person';
-import MapsRestaurant from 'material-ui/svg-icons/maps/restaurant';
-import ActionExtension from 'material-ui/svg-icons/action/extension';
-import SvgIcon from 'material-ui/SvgIcon';
-
-
-const HomeIcon = (props) => (
-  <SvgIcon {...props}>
-    <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
-  </SvgIcon>
-);
 
 const styles = {
     hint: {
@@ -33,12 +21,8 @@ const styles = {
     },
     button: {
         marginTop: 7,
-        justifyContent:"center",
         marginRight:10,
-        display:'flex',
-        flexDirection:'column',
-        padding:'5'
-
+        padding:5
     },
     wrapper:{
         zIndex:'0',
@@ -65,8 +49,9 @@ const styles = {
         fontSize: 14,
     },
     raisedButton: {
+        position: 'relative',
         zIndex: 0,
-        color:'#FFFFFF',
+        color:'#FFFFFF'
     }
 };
 
@@ -89,8 +74,8 @@ export default class PrimaryOptions extends React.Component {
 
 
     searchSizer() {
-        const { container} = this.props;
-        const { offsetHeight, offsetWidth } = container;
+        var offsetHeight = document.getElementById('content').clientHeight
+        var offsetWidth = document.getElementById('content').clientWidth
         this.setState({ offsetHeight, offsetWidth });
     }
 
@@ -114,45 +99,42 @@ export default class PrimaryOptions extends React.Component {
               <FlatButton
                 backgroundColor={index===100?"#707070":"#000000"}
                 hoverColor='#707070'
+                label="All Results"
                 onTouchTap={()=>onSelect(100)}
-                style={styles.raisedButton}
-                label="View All"
                 icon={<ActionHome />}
-                />
+                style={styles.raisedButton}/>
             </div>
             <div style={styles.button}>
               <FlatButton
                 backgroundColor={index===0?"#707070":"#000000"}
+                label="Adult"
                 hoverColor='#707070'
                 onTouchTap={()=>onSelect(0)}
-                icon={<SocialPerson />}
-                label="Adult"
                 style={styles.raisedButton}/>
             </div>
             <div style={styles.button}>
               <FlatButton
                 backgroundColor={index===1?"#707070":"#000000"}
+                label="Women's Health"
                 hoverColor='#707070'
                 onTouchTap={()=>onSelect(1)}
                 icon={<ActionPregnantWoman />}
-                style={styles.raisedButton}
-                label="Women's Health"/>
+                style={styles.raisedButton}/>
             </div>
             <div style={styles.button}>
               <FlatButton
                 backgroundColor={index===2?"#707070":"#000000"}
+                label="Child"
                 hoverColor='#707070'
                 onTouchTap={()=>onSelect(2)}
                 icon={<PlacesChildCare />}
-                style={styles.raisedButton}
-                label="Child"/>
+                style={styles.raisedButton}/>
             </div>
             <div style={styles.button}>
               <FlatButton
                 backgroundColor={index===3?"#707070":"#000000"}
                 hoverColor='#707070'
                 onTouchTap={()=>onSelect(3)}
-                icon={<ActionExtension />}
                 label="Mental Health"
                 style={styles.raisedButton}/>
             </div>
@@ -161,35 +143,25 @@ export default class PrimaryOptions extends React.Component {
                 backgroundColor={index===4?"#707070":"#000000"}
                 onTouchTap={()=>onSelect(4)}
                 hoverColor='#707070'
-                style={styles.raisedButton}
-                label="Dental"/>
+                label="Dental"
+                style={styles.raisedButton}/>
             </div>
             <div style={styles.button}>
               <FlatButton
                 backgroundColor={index===5?"#707070":"#000000"}
                 hoverColor='#707070'
+                label="Vision"
                 onTouchTap={()=>onSelect(5)}
                 icon={<ActionVisibility />}
-                style={styles.raisedButton}
-                label="Vision"/>
+                style={styles.raisedButton}/>
             </div>
             <div style={styles.button}>
               <FlatButton
                 backgroundColor={index===6?"#707070":"#000000"}
+                label="Food, Housing, and other"
                 hoverColor='#707070'
                 onTouchTap={()=>onSelect(6)}
-                icon={<MapsRestaurant />}
-                style={styles.raisedButton}
-                label="Food"/>
-            </div>
-            <div style={styles.button}>
-              <FlatButton
-                backgroundColor={index===6?"#707070":"#000000"}
-                hoverColor='#707070'
-                icon={<ActionHome />}
-                onTouchTap={()=>onSelect(6)}
-                style={styles.raisedButton}
-                label="Housing"/>
+                style={styles.raisedButton}/>
             </div>
         </div>
         </div>
