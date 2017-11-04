@@ -32,8 +32,8 @@ const common = {
       include: PATHS.src,
     }, {
       test: /\.(jpg|jpeg|png|svg)$/,
-      loader: 'file-loader',
-      include: PATHS.src,
+      loader: 'file',
+      //include: PATHS.src,
     }, {
       test: /\.jsx?$/,
       loader: 'babel?cacheDirectory',
