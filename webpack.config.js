@@ -42,6 +42,18 @@ const common = {
   }
 };
 
+const config = {
+  // .. rest of config object
+
+  // Server Configuration options
+  devServer: {
+    // .. rest of devserver options
+    disableHostCheck: true
+  },
+
+  // .. rest of config object
+};
+
 if (ENV === 'development') {
   module.exports = merge(common, {
     devServer: {
