@@ -41,6 +41,7 @@ import MyAccount from './MyAccount.jsx';
 import AddressBar from './AddressBar.jsx';
 import About from './About.jsx';
 import Blog from './Blog.jsx';
+import Help from './Help.jsx';
 import {
     geocodeByAddress,
     geocodeByPlaceId
@@ -50,8 +51,6 @@ import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 
-
-const pathToBG = require('../img/background.jpeg');
 const pathToLogo = require('../img/logo.png');
 
 import PouchDB from 'pouchdb';
@@ -643,7 +642,7 @@ export default class App extends React.Component {
     }
 
     getSearchMenu() {
-        if (this.state.shouldShowSearchMenu) {
+        if (this.state.shouldShowSearchMenu && this.state.gmaps) {
             return (
               <div>
                 <AddressBar submit={()=>this.addressSearchSubmit}
@@ -744,11 +743,13 @@ export default class App extends React.Component {
                   targetOrigin={{horizontal: 'right', vertical: 'top'}}
                 >
               <MenuItem primaryText="About"
-                          containerElement={<Link to="/About" />} />
+                        containerElement={<Link to="/About" />} />
               <MenuItem primaryText="Blog"
-                          containerElement={<Link to="/Blog" />}/>
+                        containerElement={<Link to="/Blog" />}/>
               <MenuItem primaryText ={"My Account ("+this.state.userinfo.name+")"}
-                     onTouchTap={()=>this.displayMyAccount()} />
+                        onTouchTap={()=>this.displayMyAccount()} />
+              <MenuItem primaryText ="Help"
+                        containerElement={<Link to="/Help" />} />
               <MenuItem primaryText="Logout"/>
             </IconMenu>
         } else {
@@ -758,13 +759,15 @@ export default class App extends React.Component {
                   targetOrigin={{horizontal: 'right', vertical: 'top'}}
                 >
               <MenuItem primaryText="About"
-                          containerElement={<Link to="/About" />} />
+                        containerElement={<Link to="/About" />} />
               <MenuItem primaryText="Blog"
-                          containerElement={<Link to="/Blog" />}/>
+                        containerElement={<Link to="/Blog" />}/>
               <MenuItem primaryText ="Login/Register"
-                                 containerElement={<Link to="/LoginRegister" />} />
+                        containerElement={<Link to="/LoginRegister" />} />
+              <MenuItem primaryText ="Help"
+                        containerElement={<Link to="/Help" />} />
             </IconMenu>
-      }
+        }
     }
 
 
@@ -909,8 +912,6 @@ export default class App extends React.Component {
 
         const ClinicPageWithRouter = withRouter(ClinicPage)
 
-        console.log(this.refs)
-
         return (
 
             <MuiThemeProvider muiTheme={getMuiTheme()}>
@@ -954,7 +955,10 @@ export default class App extends React.Component {
             {/* {this.state.screen} */}
             <Switch>
               <Route exact path="/About" render={(props) => (
-                <About {...props} container={this.refs.content}/>
+                <About {...props}/>
+              )} />
+              <Route exact path="/Help" render={(props) => (
+                <Help {...props}/>
               )} />
               <Route exact path="/Blog" render={(props) => (
                 <Blog {...props} container={this.refs.content}/>

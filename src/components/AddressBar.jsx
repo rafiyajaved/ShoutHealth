@@ -38,7 +38,7 @@ render() {
 
   const { submit, address, onChange, maps }= this.props;
 
-    window.google.maps = maps;
+    // window.google.maps = maps;
 
     const inputProps = {
       value: address,
