@@ -13,13 +13,18 @@ const styles = {
         alignment: 'right',
         overflow: 'auto'
     },
+    image: {
+        display: 'block',
+        margin: 'auto',
+        width: '40%',
+    },
 };
 
 export default class About extends React.Component {
     render() {
         return (
             <Paper style={styles.main}>
-                <img src={require('../img/help.jpg')} ></img>
+                <img src={require('../img/help.jpg')} style={styles.image}></img>
             </Paper>
         );
     }
