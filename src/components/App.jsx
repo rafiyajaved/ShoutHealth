@@ -935,7 +935,7 @@ export default class App extends React.Component {
                       style={styles.appbar}>
               <div style={styles.column}>
               <div style={styles.row}>
-                <img src={pathToLogo} height="60"></img>
+                <Link to="/"><img src={pathToLogo} height="60"/> </Link>
                 <div style={styles.appbarTitle}>{this.state.appbarTitle}</div>
                 <div style={styles.headermenu}>
                 {this.getMenuOptions()}
