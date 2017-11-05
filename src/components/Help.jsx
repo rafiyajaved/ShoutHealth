@@ -19,8 +19,7 @@ export default class About extends React.Component {
     render() {
         return (
             <Paper style={styles.main}>
-              <h2>Help</h2>
-                  <Image source={require('../img/help.jpg')}/>
+                <img src={require('../img/help.jpg')} ></img>
             </Paper>
         );
     }
