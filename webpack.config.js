@@ -46,6 +46,7 @@ if (ENV === 'development') {
   module.exports = merge(common, {
     devServer: {
       contentBase: PATHS.build,
+      disableHostCheck: true,
 
       // Enable history API fallback so HTML5 History API based
       // routing works. This is a good default that will come
