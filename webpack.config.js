@@ -32,8 +32,7 @@ const common = {
       include: PATHS.src,
     }, {
       test: /\.(jpg|jpeg|png|svg)$/,
-      loader: 'file',
-      include: PATHS.src,
+      loader: 'file-loader',
     }, {
       test: /\.jsx?$/,
       loader: 'babel?cacheDirectory',
@@ -46,6 +45,7 @@ if (ENV === 'development') {
   module.exports = merge(common, {
     devServer: {
       contentBase: PATHS.build,
+      host: '0.0.0.0',
       disableHostCheck: true,
 
       // Enable history API fallback so HTML5 History API based
