@@ -980,7 +980,7 @@ export default class App extends React.Component {
                 <ClinicPageWithRouter {...props} container={this.refs.content}
                             footer={this.refs.footer}
                             displaySearch={(result) => this.displaySearch()}
-                            addFeedback={(x) => this.addFeedback(x)}
+                            addFeedback={(x, result) => this.addFeedback(x, result)}
                             getFeedbacks={()=>this.state.clinicpageFeedbacks}
                             getFilteredResources={() => this.state.filteredResources}
                             vouchFor={(a,b,c)=>this.vouchFor(a,b,c)}
