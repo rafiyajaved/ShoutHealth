@@ -936,7 +936,6 @@ export default class App extends React.Component {
               <div style={styles.column}>
               <div style={styles.row}>
                 <Link to="/"><img src={pathToLogo} height="60"/> </Link>
-                <div style={styles.appbarTitle}>{this.state.appbarTitle}</div>
                 <div style={styles.headermenu}>
                 {this.getMenuOptions()}
               </div>
@@ -980,7 +979,7 @@ export default class App extends React.Component {
                 <ClinicPageWithRouter {...props} container={this.refs.content}
                             footer={this.refs.footer}
                             displaySearch={(result) => this.displaySearch()}
-                            addFeedback={(x) => this.addFeedback(x)}
+                            addFeedback={(x, result) => this.addFeedback(x, result)}
                             getFeedbacks={()=>this.state.clinicpageFeedbacks}
                             getFilteredResources={() => this.state.filteredResources}
                             vouchFor={(a,b,c)=>this.vouchFor(a,b,c)}
