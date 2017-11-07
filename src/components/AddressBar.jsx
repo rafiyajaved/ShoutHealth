@@ -36,9 +36,7 @@ export default class AddressBar extends Component {
 
 render() {
 
-  const { submit, address, onChange, maps }= this.props;
-
-    // window.google.maps = maps;
+  const { submit, address, onChange }= this.props;
 
     const inputProps = {
       value: address,

@@ -42,6 +42,8 @@ import AddressBar from './AddressBar.jsx';
 import About from './About.jsx';
 import Blog from './Blog.jsx';
 import Help from './Help.jsx';
+import LandingPage from './LandingPage.jsx';
+
 import {
     geocodeByAddress,
     geocodeByPlaceId
@@ -646,7 +648,6 @@ export default class App extends React.Component {
             return (
               <div>
                 <AddressBar submit={()=>this.addressSearchSubmit}
-                            maps={this.state.gmaps}
                             address={this.state.address}
                             onChange={(address)=>this.setState({address})}/>
                 {this.state.searchBar}
@@ -999,6 +1000,17 @@ export default class App extends React.Component {
                                   getSearchstring={()=>this.state.searchString}
                                   setShouldShowSearchMenu={(shouldShowSearchMenu)=>this.setShouldShowSearchMenu(shouldShowSearchMenu)}/>
               )} />
+              <Route exact path="/LandingPage" render={(props) => (
+                  <LandingPage {...props} submit={()=>this.addressSearchSubmit}
+                                          address={this.state.address}
+                                          onChange={(address)=>this.setState({address})}/>
+                )} />
+              )} />
+
+              submit={()=>this.addressSearchSubmit}
+                          address={this.state.address}
+                          onChange={(address)=>this.setState({address})}
+
             </Switch>
           </CSSTransitionGroup>
           </div>
