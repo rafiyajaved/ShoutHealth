@@ -505,7 +505,7 @@ export default class App extends React.Component {
     }
 
     //This function allows user to filter resources based on the selected icon in the footer
-    footerSelect(index) {
+    selectOption(index) {
         //first, go back to the main screen
         this.setState({
             selectedIndex: index
