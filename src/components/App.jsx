@@ -414,7 +414,6 @@ export default class App extends React.Component {
                             filterResources={(string) => this.filterResources(string)}
                             getFilteredResources={() => this.state.filteredResources}
                             getPageLoading={() => this.state.pageLoading}
-                            onGoogleApiLoad={(map, maps) => this.onGoogleApiLoad(map, maps)}
                             userLat={this.state.userLat} userLng={this.state.userLng}
                             getSearchstring={()=>this.state.searchString} />
         });
@@ -624,23 +623,6 @@ export default class App extends React.Component {
     handleChanges(change, changesObject) {
         this.displaySearch();
         changesObject.cancel();
-    }
-
-    // A function that's called by the React Google Maps library after map
-    // component loads the API Currently doing nothing! shouthealth is not using
-    // geocoder. May be necessary in the future.
-    onGoogleApiLoad(map, maps) {
-        this.setState({
-            gmaps: maps
-        });
-        this.setState({
-            gmap: map
-        });
-        window.google.maps = maps;
-        var geo = new google.maps.Geocoder();
-        this.setState({
-            geocoder: geo
-        });
     }
 
     getSearchMenu() {
@@ -995,7 +977,6 @@ export default class App extends React.Component {
                                   filterResources={(string) => this.filterResources(string)}
                                   getFilteredResources={() => this.state.filteredResources}
                                   getPageLoading={() => this.state.pageLoading}
-                                  onGoogleApiLoad={(map, maps) => this.onGoogleApiLoad(map, maps)}
                                   userLat={this.state.userLat} userLng={this.state.userLng}
                                   getSearchstring={()=>this.state.searchString}
                                   setShouldShowSearchMenu={(shouldShowSearchMenu)=>this.setShouldShowSearchMenu(shouldShowSearchMenu)}/>

@@ -32,7 +32,7 @@ export default class Map extends React.Component {
 
     render() {
         const { width, height } = this.props;
-        const { getFilteredResources, displayResult, userLat, userLng, onGoogleApiLoad } = this.props;
+        const { getFilteredResources, displayResult, userLat, userLng } = this.props;
         const filteredResources = getFilteredResources();
 
         const map = (
@@ -41,11 +41,7 @@ export default class Map extends React.Component {
             defaultCenter={this.defaults.center}
             defaultZoom={this.defaults.zoom}
             hoverDistance={20}
-            // bootstrapURLKeys={{
-            // key: 'AIzaSyClWk0ocan4KfAoOA51Z0HDdIa847fhpTM',
-            // libraries : 'places'}}
             onChildClick={(key, childProp)=>this.onChildClick(key, childProp)}
-            // onGoogleApiLoaded={({map, maps}) => onGoogleApiLoad(map, maps)}
             yesIWantToUseGoogleMapApiInternals>
 
             {filteredResources.map((result, i) =>

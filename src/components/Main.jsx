@@ -86,7 +86,6 @@ export default class Main extends React.Component {
                 displayAddResource,
                 displaySearch,
                 filterResources,
-                onGoogleApiLoad,
                 getSearchstring,
                 getFilteredResources,
                 getPageLoading,
@@ -101,14 +100,28 @@ export default class Main extends React.Component {
         return (
           <div style={styles.wrapper}>
             <div style={{width: resultWidth, height: offsetHeight, overflow: 'auto', paddingLeft:10, paddingRight:5}}>
-              <ResultsWithRouter height={offsetHeight} getFilteredResources={getFilteredResources} displayResult={displayResult} displaySearch={displaySearch} displayAddResource={displayAddResource} getPageLoading={getPageLoading} getSearchstring={getSearchstring}  userLat={userLat} userLng={userLng}/>
+              <ResultsWithRouter height={offsetHeight}
+                                 getFilteredResources={getFilteredResources}
+                                 displayResult={displayResult}
+                                 displaySearch={displaySearch}
+                                 displayAddResource={displayAddResource}
+                                 getPageLoading={getPageLoading}
+                                 getSearchstring={getSearchstring}
+                                 userLat={userLat}
+                                 userLng={userLng}/>
 
             </div>
 
             <div style={styles.map}>
-              <Map width={mapWidth} height={offsetHeight} getFilteredResources={getFilteredResources} displayResult={displayResult} onGoogleApiLoad={onGoogleApiLoad} userLat={userLat} userLng={userLng} center={[userLat,userLng]}/>
+              <Map width={mapWidth}
+                   height={offsetHeight}
+                   getFilteredResources={getFilteredResources}
+                   displayResult={displayResult}
+                   userLat={userLat}
+                   userLng={userLng}
+                   center={[userLat,userLng]}/>
             </div>
-            {this.state.switchButton?<SwitchViewButton switchView={()=>this.switchView()} getView={()=>this.state.viewList}/>:" "}
+            {this.state.switchButton ? <SwitchViewButton switchView={()=>this.switchView()} getView={()=>this.state.viewList}/>:" "}
             <div style={{zIndex:1, bottom:'2%', right:'10%', position:'absolute', padding:'10px'}}>
                         <FloatingActionButton
                           backgroundColor='#000000'
