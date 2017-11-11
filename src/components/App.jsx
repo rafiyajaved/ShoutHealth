@@ -644,10 +644,10 @@ export default class App extends React.Component {
     }
 
     getSearchMenu() {
-        if (this.state.shouldShowSearchMenu && this.state.gmaps) {
+        if (this.state.shouldShowSearchMenu) {
             return (
               <div>
-                <AddressBar submit={()=>this.addressSearchSubmit}
+                <AddressBar submit={()=>this.addressSearchSubmit()}
                             address={this.state.address}
                             onChange={(address)=>this.setState({address})}/>
                 {this.state.searchBar}
@@ -1003,13 +1003,9 @@ export default class App extends React.Component {
               <Route exact path="/LandingPage" render={(props) => (
                   <LandingPage {...props} submit={()=>this.addressSearchSubmit}
                                           address={this.state.address}
-                                          onChange={(address)=>this.setState({address})}/>
+                                          onChange={(address)=>this.setState({address})} />
                 )} />
               )} />
-
-              submit={()=>this.addressSearchSubmit}
-                          address={this.state.address}
-                          onChange={(address)=>this.setState({address})}
 
             </Switch>
           </CSSTransitionGroup>
