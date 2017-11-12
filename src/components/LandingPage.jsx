@@ -6,12 +6,23 @@ import React from 'react';
 import AddressBar from './AddressBar.jsx';
 
 const pathToBackground = require('../img/background.jpeg');
+const pathToLogo = require('../img/transparent-logo.png');
+
 const style = {
 
     wrapper: {
         backgroundImage: 'url(' + pathToBackground + ')',
         backgroundPosition: 'center',
         backgroundAttachment:'fixed'
+    },
+
+    logo: {
+        height: "auto",
+        width: "auto",
+        display: "block",
+        margin: "0 auto",
+        maxWidth: "50%",
+        maxHeight: "50%"
     }
 
 }
@@ -33,9 +44,11 @@ export default class LandingPage extends React.Component {
 
         return (
             <div id='wrapper' style={style.wrapper}>
-              <AddressBar submit={()=>submit()}
-                          address={address}
-                          onChange={onChange}/>
+
+                <img src={pathToLogo} style={style.logo} />
+                <AddressBar submit={()=>submit()}
+                            address={address}
+                            onChange={onChange}/>
             </div>
         );
     }
