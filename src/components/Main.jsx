@@ -31,7 +31,6 @@ const styles={
 export default class Main extends React.Component {
     constructor(props) {
         super(props);
-        console.log(props)
         props.setShouldShowSearchMenu(true);
         this.state = {
           viewList:false,

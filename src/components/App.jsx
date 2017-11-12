@@ -142,7 +142,8 @@ export default class App extends React.Component {
             loggedin: false,
             pendingData: [],
             userinfo:"",
-            shouldShowSearchMenu: false
+            shouldShowSearchMenu: false,
+            shouldShowHeaderAndDrawer: true
         };
     }
 
@@ -643,6 +644,44 @@ export default class App extends React.Component {
         }
     }
 
+    // quick fix to remove header and drawer from the landing page.
+    // definitely not the best way to do this though
+    getHeaderAndDrawer() {
+        if (this.state.shouldShowHeaderAndDrawer) {
+            return (
+                <div>
+                    <div>
+                       <Drawer
+                       open={this.state.showMenu}
+                       docked={false}
+                       onRequestChange={(showMenu) => this.setState({showMenu})}>
+                         <LeftMenu addResource={(res)=>this.addResource(res)}
+                                   displayUpdateDocs={()=>this.displayUpdateDocs()}
+                                   displayApproveDocs={()=>this.displayApproveDocs()}
+                                   getUserinfo={()=>this.state.userinfo}/>
+                      </Drawer>
+                   </div>
+
+                    <div id='header'>
+                        <AppBar iconElementLeft={this.state.appbarIcon}
+                                onLeftIconButtonTouchTap={() => this.appbarClick()}
+                                style={styles.appbar}>
+                        <div style={styles.column}>
+                        <div style={styles.row}>
+                          <Link to="/"><img src={pathToLogo} height="60"/> </Link>
+                          <div style={styles.headermenu}>
+                          {this.getMenuOptions()}
+                        </div>
+                        </div>
+                        </div>
+                    </AppBar>
+
+                    </div>
+                </div>
+            )
+        }
+    }
+
     addressSearchSubmit() {
 
         var getCoords= new Promise((resolve, reject) =>{
@@ -882,6 +921,10 @@ export default class App extends React.Component {
         this.setState({shouldShowSearchMenu: shouldShowSearchMenu})
     }
 
+    setShouldShowHeaderAndDrawer(shouldShowHeaderAndDrawer) {
+        this.setState({shouldShowHeaderAndDrawer: shouldShowHeaderAndDrawer})
+    }
+
     componentDidMount() {
         // may be the wrong place to call these. Might be better to call in
         // component will mount
@@ -900,33 +943,7 @@ export default class App extends React.Component {
             <MuiThemeProvider muiTheme={getMuiTheme()}>
           <div id='wrapper' style={styles.wrapper}>
 
-          <div>
-             <Drawer
-             open={this.state.showMenu}
-             docked={false}
-             onRequestChange={(showMenu) => this.setState({showMenu})}>
-               <LeftMenu addResource={(res)=>this.addResource(res)}
-                         displayUpdateDocs={()=>this.displayUpdateDocs()}
-                         displayApproveDocs={()=>this.displayApproveDocs()}
-                         getUserinfo={()=>this.state.userinfo}/>
-            </Drawer>
-         </div>
-
-          <div id='header'>
-              <AppBar iconElementLeft={this.state.appbarIcon}
-                      onLeftIconButtonTouchTap={() => this.appbarClick()}
-                      style={styles.appbar}>
-              <div style={styles.column}>
-              <div style={styles.row}>
-                <Link to="/"><img src={pathToLogo} height="60"/> </Link>
-                <div style={styles.headermenu}>
-                {this.getMenuOptions()}
-              </div>
-              </div>
-              </div>
-          </AppBar>
-
-          </div>
+          {this.getHeaderAndDrawer()}
 
           {this.getSearchMenu()}
 
@@ -984,7 +1001,8 @@ export default class App extends React.Component {
               <Route exact path="/LandingPage" render={(props) => (
                   <LandingPage {...props} submit={()=>this.addressSearchSubmit}
                                           address={this.state.address}
-                                          onChange={(address)=>this.setState({address})} />
+                                          onChange={(address)=>this.setState({address})}
+                                          setShouldShowHeaderAndDrawer={(shouldShowHeaderAndDrawer)=>this.setShouldShowHeaderAndDrawer(shouldShowHeaderAndDrawer)} />
                 )} />
               )} />
 
