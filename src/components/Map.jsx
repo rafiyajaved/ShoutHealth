@@ -10,8 +10,6 @@ export default class Map extends React.Component {
 
     constructor(props) {
         super(props);
-
-        console.log(props)
         let userLat = Number(props.userLat);
         let userLng = Number(props.userLng);
         this.defaults = {

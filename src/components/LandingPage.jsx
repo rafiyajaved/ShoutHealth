@@ -69,7 +69,7 @@ export default class LandingPage extends React.Component {
     placesAutocompleteOnChange(newAddress, placeID) {
         this.setState({address: newAddress});
         this.state.queryString = encodeURIComponent(newAddress);
-        console.log("queryString is: " + queryString + " and placeID is: " + placeID);
+        console.log("queryString is: " + this.state.queryString + " and placeID is: " + placeID);
     }
 
     handleSearchClick() {

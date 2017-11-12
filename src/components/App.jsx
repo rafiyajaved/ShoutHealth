@@ -118,9 +118,9 @@ const styles = {
 
 export default class App extends React.Component {
 
-    constructor() {
-        super();
-
+    constructor(props) {
+        super(props);
+        console.log("app props are: ", props)
         // this component's state acts as the overall store for now
         this.state = {
             allResources: [],
@@ -289,33 +289,6 @@ export default class App extends React.Component {
       console.log("after delete: ", tempPendingData);
     }
 
-
-    displayMyAccount() {
-        this.changeHeaderInfo("My Account");
-        this.setState({
-            screen: <MyAccount container={this.refs.content}
-                               getLoggedIn={() => this.state.loggedin}
-                               getUserinfo={()=>this.state.userinfo}
-                               changeDoc={(res)=>this.changeDoc(res)}/>
-        });
-
-    }
-
-    displayUpdateDocs() {
-
-      if(this.state.loggedin){
-        this.changeHeaderInfo("Update Docs");
-        this.setState({
-            screen: <UpdateDocs container={this.refs.content}
-                                footer={this.refs.footer}
-                                displaySearch={()=>this.displaySearch}
-                                getFilteredResources={() => this.state.filteredResources}
-                                updateDoc={(res)=>this.updateDoc(res)}/>
-
-        });
-      }
-    }
-
     displayApproveDocs() {
       if(this.state.loggedin) {
         db_pending.allDocs({
@@ -327,7 +300,6 @@ export default class App extends React.Component {
                 return this.error(err);
             }
             console.log("doc is: ", doc)
-            this.changeHeaderInfo("Approve Docs");
             var numRows = doc.total_rows;
             var tempPending = [];
             console.log("doc length is: ", numRows);
@@ -340,34 +312,8 @@ export default class App extends React.Component {
             this.setState({
               pendingData: tempPending
             })
-            this.setState({
-              screen: <ApproveDocs container={this.refs.content}
-                                  footer={this.refs.footer}
-                                  displayResult={(res)=>this.displayResult(res)}
-                                  pendingData={this.state.pendingData}
-                                  changeDoc={(res)=>this.changeDoc(res)}/>
-            })
         });
         }
-    }
-
-    // This function basically updates the single page app to now display the
-    // ClinicPage component. State variables are changed as needed in order to
-    // modify the title and layout of the page.
-    displayResult(result) {
-        const clinicname = result.name;
-        this.changeHeaderInfo(clinicname);
-        this.updateFeedbacks(result.name);
-        this.setState({
-            screen: <ClinicPage container={this.refs.content}
-                                footer={this.refs.footer}
-                                displaySearch={(result) => this.displaySearch()}
-                                addFeedback={(x) => this.addFeedback(x)}
-                                getFeedbacks={()=>this.state.clinicpageFeedbacks}
-                                result={result} vouchFor={(a,b,c)=>this.vouchFor(a,b,c)}
-                                vouchAgainst={(a,b,c)=>this.vouchAgainst(a,b,c)}
-                                addFlag={()=>this.addFlag(a,b)}/>
-        });
     }
 
     // This function basically updates the single page app to now display the
@@ -406,17 +352,6 @@ export default class App extends React.Component {
                                       getselectedIndex={()=>this.state.selectedIndex}
                                       onSelect={(index) => this.selectOption(index)}/>
                         </div>
-        });
-        this.setState({
-            screen: <Main container={this.refs.content}
-                            footer={this.refs.footer}
-                            displayResult={(result) => this.displayResult(result)}
-                            displaySearch={() => this.displaySearch()}
-                            filterResources={(string) => this.filterResources(string)}
-                            getFilteredResources={() => this.state.filteredResources}
-                            getPageLoading={() => this.state.pageLoading}
-                            userLat={this.state.userLat} userLng={this.state.userLng}
-                            getSearchstring={()=>this.state.searchString} />
         });
 
     }
@@ -656,7 +591,6 @@ export default class App extends React.Component {
                        docked={false}
                        onRequestChange={(showMenu) => this.setState({showMenu})}>
                          <LeftMenu addResource={(res)=>this.addResource(res)}
-                                   displayUpdateDocs={()=>this.displayUpdateDocs()}
                                    displayApproveDocs={()=>this.displayApproveDocs()}
                                    getUserinfo={()=>this.state.userinfo}/>
                       </Drawer>
@@ -769,8 +703,7 @@ export default class App extends React.Component {
                         containerElement={<Link to="/About" />} />
               <MenuItem primaryText="Blog"
                         containerElement={<Link to="/Blog" />}/>
-              <MenuItem primaryText ={"My Account ("+this.state.userinfo.name+")"}
-                        onTouchTap={()=>this.displayMyAccount()} />
+              <MenuItem primaryText ={"My Account ("+this.state.userinfo.name+")"} />
               <MenuItem primaryText ="Help"
                         containerElement={<Link to="/Help" />} />
               <MenuItem primaryText="Logout"/>
@@ -952,7 +885,6 @@ export default class App extends React.Component {
           <CSSTransitionGroup transitionName='slide'
                               transitionEnterTimeout={ 100 }
                               transitionLeaveTimeout={ 300 }>
-            {/* {this.state.screen} */}
             <Switch>
               <Route exact path="/About" render={(props) => (
                 <About {...props}/>
@@ -1001,7 +933,7 @@ export default class App extends React.Component {
                                              setShouldShowSearchMenu={(shouldShowSearchMenu)=>this.setShouldShowSearchMenu(shouldShowSearchMenu)}/>
                       )} />
               <Route exact path="/LandingPage" render={(props) => (
-                  <LandingPage {...props} submit={()=>this.addressSearchSubmit}
+                  <LandingPage {...props} submit={()=>this.addressSearchSubmit()}
                                           address={this.state.address}
                                           onChange={(address)=>this.setState({address})}
                                           setShouldShowHeaderAndDrawer={(shouldShowHeaderAndDrawer)=>this.setShouldShowHeaderAndDrawer(shouldShowHeaderAndDrawer)} />
