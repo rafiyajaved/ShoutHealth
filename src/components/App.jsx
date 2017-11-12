@@ -683,13 +683,14 @@ export default class App extends React.Component {
     }
 
     addressSearchSubmit() {
-
+        console.log("address is: " + this.state.address);
         var getCoords= new Promise((resolve, reject) =>{
           geocodeByAddress(this.state.address, (err, latLng) => {
                 if (err) {
                     console.log('error geocoding by address:', err)
                     reject(err);
                 }else{
+                    console.log(latLng)
                   this.setState({
                       userLat: latLng.lat
                   });
@@ -936,7 +937,7 @@ export default class App extends React.Component {
 
     render() {
 
-        const ClinicPageWithRouter = withRouter(ClinicPage)
+        const ClinicPageWithRouter = withRouter(ClinicPage);
 
         return (
 
@@ -988,16 +989,17 @@ export default class App extends React.Component {
               )} />
               <Route exact path="/" render={(props) => (
                   <Main {...props} container={this.refs.content}
-                                  footer={this.refs.footer}
-                                  displayResult={(result) => this.displayResult(result)}
-                                  displaySearch={() => this.displaySearch()}
-                                  filterResources={(string) => this.filterResources(string)}
-                                  getFilteredResources={() => this.state.filteredResources}
-                                  getPageLoading={() => this.state.pageLoading}
-                                  userLat={this.state.userLat} userLng={this.state.userLng}
-                                  getSearchstring={()=>this.state.searchString}
-                                  setShouldShowSearchMenu={(shouldShowSearchMenu)=>this.setShouldShowSearchMenu(shouldShowSearchMenu)}/>
-              )} />
+                                             footer={this.refs.footer}
+                                             displayResult={(result) => this.displayResult(result)}
+                                             displaySearch={() => this.displaySearch()}
+                                             filterResources={(string) => this.filterResources(string)}
+                                             getFilteredResources={() => this.state.filteredResources}
+                                             getPageLoading={() => this.state.pageLoading}
+                                             userLat={this.state.userLat}
+                                             userLng={this.state.userLng}
+                                             getSearchstring={()=>this.state.searchString}
+                                             setShouldShowSearchMenu={(shouldShowSearchMenu)=>this.setShouldShowSearchMenu(shouldShowSearchMenu)}/>
+                      )} />
               <Route exact path="/LandingPage" render={(props) => (
                   <LandingPage {...props} submit={()=>this.addressSearchSubmit}
                                           address={this.state.address}

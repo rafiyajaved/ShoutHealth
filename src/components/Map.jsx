@@ -11,14 +11,24 @@ export default class Map extends React.Component {
     constructor(props) {
         super(props);
 
+        console.log(props)
+        let userLat = Number(props.userLat);
+        let userLng = Number(props.userLng);
         this.defaults = {
-            center: { lat: 33.7490, lng: -84.3880 },
+            center: { lat: userLat, lng: userLng },
             zoom: 10,
         };
 
         this.state = {
-          clicked:-10
+            center: { lat: userLat, lng: userLng },
+            clicked:-10
         }
+    }
+
+    componentWillReceiveProps(newProps) {
+        let userLat = Number(newProps.userLat);
+        let userLng = Number(newProps.userLng);
+        this.setState({center: { lat: userLat, lng: userLng }})
     }
 
     onChildClick(key, childProps) {
@@ -39,6 +49,7 @@ export default class Map extends React.Component {
             <div style={{height,width}}>
          <GoogleMap
             defaultCenter={this.defaults.center}
+            center={this.state.center}
             defaultZoom={this.defaults.zoom}
             hoverDistance={20}
             onChildClick={(key, childProp)=>this.onChildClick(key, childProp)}
