@@ -20,16 +20,16 @@ const styles = {
         display:'flex',
         flexDirection:'row',
         flexWrap:'wrap',
-        padding:2,
-        justifyContent: "center"
     },
-    filterButton2: {
-        color: 'black',
-        background:'#E8E8E8'
+    secondaryButton: {
+        color: '#F06292',
+        marginRight:10,
+        marginTop:10,
+        border: '1px solid #BEBEBE',
     },
-    selected2: {
-        color: 'black',
-        background:'#E8E8E8'
+    text: {
+      paddingLeft:10,
+      paddingRight:10
     },
 };
 
@@ -45,7 +45,8 @@ export default class SecondaryOptions extends React.Component {
         return(
         <div style={styles.wrapper}>
           <FlatButton
-                backgroundColor={index===7?"#E8E8E8":"#D3D3D3"} label=" Showing All Results "/>
+                          style={styles.secondaryButton}
+                backgroundColor={index===7?"#E8E8E8":"#FFFFFF"} label=" Showing All Results "/>
         </div>
         )
     }
@@ -53,107 +54,132 @@ export default class SecondaryOptions extends React.Component {
         return(
         <div style={styles.wrapper}>
             <FlatButton
+                    style={styles.secondaryButton}
                     onClick={() => this.onSelect(7)}
-                    backgroundColor={index===7?"#E8E8E8":"#D3D3D3"}
+                    backgroundColor={index===7?"#E8E8E8":"#FFFFFF"}
                     label="Check-up" />
             <FlatButton
+                    style={styles.secondaryButton}
                     onClick={() => this.onSelect(8)}
-                    backgroundColor={index===8?"#E8E8E8":"#D3D3D3"}
+                    backgroundColor={index===8?"#E8E8E8":"#FFFFFF"}
                     label="Emergency rooms"/>
             <FlatButton
+                    style={styles.secondaryButton}
                     onClick={() => this.onSelect(9)}
-                    backgroundColor={index===9?"#E8E8E8":"#D3D3D3"} label="Chronic Disease Management"/>
+                    backgroundColor={index===9?"#E8E8E8":"#FFFFFF"} label="Chronic Disease Management"/>
             <FlatButton
+                  style={styles.secondaryButton}
                     onClick={() => this.onSelect(10)}
-                    backgroundColor={index===10?"#E8E8E8":"#D3D3D3"} label="STD Testing"/>
+                    backgroundColor={index===10?"#E8E8E8":"#FFFFFF"} label="STD Testing"/>
         </div>);
     }
     else if(index==1||(index<20&&index>10)){
       return(
       <div style={styles.wrapper}>
           <FlatButton
+                  style={styles.secondaryButton}
                   onClick={() => this.onSelect(11)}
-                  backgroundColor={index===11?"#E8E8E8":"#D3D3D3"} label="Pregnancy Test"/>
+                  backgroundColor={index===11?"#E8E8E8":"#FFFFFF"} label="Pregnancy Test"/>
           <FlatButton
+                  style={styles.secondaryButton}
                   onClick={() => this.onSelect(12)}
-                  backgroundColor={index===12?"#E8E8E8":"#D3D3D3"} label="Pap Smear"/>
+                  backgroundColor={index===12?"#E8E8E8":"#FFFFFF"} label="Pap Smear"/>
           <FlatButton
+                  style={styles.secondaryButton}
                   onClick={() => this.onSelect(13)}
-                  backgroundColor={index===13?"#E8E8E8":"#D3D3D3"} label="Mammogram"/>
+                  backgroundColor={index===13?"#E8E8E8":"#FFFFFF"} label="Mammogram"/>
           <FlatButton
+                  style={styles.secondaryButton}
                   onClick={() => this.onSelect(14)}
-                  backgroundColor={index===14?"#E8E8E8":"#D3D3D3"} label="Birth Control"/>
+                  backgroundColor={index===14?"#E8E8E8":"#FFFFFF"} label="Birth Control"/>
       </div>);
     }else if(index==2||(index<30&&index>20)){
       return(
       <div style={styles.wrapper}>
           <FlatButton
+                  style={styles.secondaryButton}
                   onClick={() => this.onSelect(21)}
-                  backgroundColor={index===21?"#E8E8E8":"#D3D3D3"} label="Immunization"/>
+                  backgroundColor={index===21?"#E8E8E8":"#FFFFFF"} label="Immunization"/>
           <FlatButton
+                  style={styles.secondaryButton}
                   onClick={() => this.onSelect(22)}
-                  backgroundColor={index===22?"#E8E8E8":"#D3D3D3"} label="Check-up"/>
+                  backgroundColor={index===22?"#E8E8E8":"#FFFFFF"} label="Check-up"/>
           <FlatButton
+                  style={styles.secondaryButton}
                   onClick={() => this.onSelect(23)}
-                  backgroundColor={index===23?"#E8E8E8":"#D3D3D3"} label="Emergency"/>
+                  backgroundColor={index===23?"#E8E8E8":"#FFFFFF"} label="Emergency"/>
       </div>);
     }else if(index==3||(index<40&&index>30)){
       return(
       <div style={styles.wrapper}>
           <FlatButton
+                  style={styles.secondaryButton}
                   onClick={() => this.onSelect(31)}
-                  backgroundColor={index===31?"#E8E8E8":"#D3D3D3"} label="Behavioral Health"/>
+                  backgroundColor={index===31?"#E8E8E8":"#FFFFFF"} label="Behavioral Health"/>
           <FlatButton
+                  style={styles.secondaryButton}
                   onClick={() => this.onSelect(32)}
-                  backgroundColor={index===32?"#E8E8E8":"#D3D3D3"} label="Counseling"/>
+                  backgroundColor={index===32?"#E8E8E8":"#FFFFFF"} label="Counseling"/>
           <FlatButton
+                  style={styles.secondaryButton}
                   onClick={() => this.onSelect(33)}
-                  backgroundColor={index===33?"#E8E8E8":"#D3D3D3"} label="Psychiatric Emergency"/>
+                  backgroundColor={index===33?"#E8E8E8":"#FFFFFF"} label="Psychiatric Emergency"/>
       </div>);
     }else if(index==4||(index<50&&index>40)){
       return(
       <div style={styles.wrapper}>
           <FlatButton
+                  style={styles.secondaryButton}
                   onClick={() => this.onSelect(41)}
-                  backgroundColor={index===41?"#E8E8E8":"#D3D3D3"} label="Basic filling/extraction"/>
+                  backgroundColor={index===41?"#E8E8E8":"#FFFFFF"} label="Basic filling/extraction"/>
           <FlatButton
+                  style={styles.secondaryButton}
                   onClick={() => this.onSelect(42)}
-                  backgroundColor={index===42?"#E8E8E8":"#D3D3D3"} label="Cleaning"/>
+                  backgroundColor={index===42?"#E8E8E8":"#FFFFFF"} label="Cleaning"/>
           <FlatButton
+                  style={styles.secondaryButton}
                   onClick={() => this.onSelect(43)}
-                  backgroundColor={index===43?"#E8E8E8":"#D3D3D3"} label="Advanced dental"/>
+                  backgroundColor={index===43?"#E8E8E8":"#FFFFFF"} label="Advanced dental"/>
       </div>);
     }else if(index==5||(index<60&&index>50)){
       return(
       <div style={styles.wrapper}>
           <FlatButton
+                  style={styles.secondaryButton}
                   onClick={() => this.onSelect(51)}
-                  backgroundColor={index===51?"#E8E8E8":"#D3D3D3"} label="Vision testing"/>
+                  backgroundColor={index===51?"#E8E8E8":"#FFFFFF"} label="Vision testing"/>
           <FlatButton
+                  style={styles.secondaryButton}
                   onClick={() => this.onSelect(52)}
-                  backgroundColor={index===52?"#E8E8E8":"#D3D3D3"} label="Retina"/>
+                  backgroundColor={index===52?"#E8E8E8":"#FFFFFF"} label="Retina"/>
       </div>);
     }else if(index==6||(index<70&&index>60)){
       return(
       <div style={styles.wrapper}>
           <FlatButton
+                  style={styles.secondaryButton}
                   onClick={() => this.onSelect(61)}
-                  backgroundColor={index===61?"#E8E8E8":"#D3D3D3"} label="Housing and Shelters"/>
+                  backgroundColor={index===61?"#E8E8E8":"#FFFFFF"} label="Housing and Shelters"/>
           <FlatButton
+                  style={styles.secondaryButton}
                   onClick={() => this.onSelect(62)}
-                  backgroundColor={index===62?"#E8E8E8":"#D3D3D3"} label="Food Pantries"/>
+                  backgroundColor={index===62?"#E8E8E8":"#FFFFFF"} label="Food Pantries"/>
           <FlatButton
+                  style={styles.secondaryButton}
                   onClick={() => this.onSelect(63)}
-                  backgroundColor={index===63?"#E8E8E8":"#D3D3D3"} label="Employment Assistance"/>
+                  backgroundColor={index===63?"#E8E8E8":"#FFFFFF"} label="Employment Assistance"/>
           <FlatButton
+                  style={styles.secondaryButton}
                   onClick={() => this.onSelect(64)}
-                  backgroundColor={index===64?"#E8E8E8":"#D3D3D3"} label="Veteran Services"/>
+                  backgroundColor={index===64?"#E8E8E8":"#FFFFFF"} label="Veteran Services"/>
           <FlatButton
+                  style={styles.secondaryButton}
                   onClick={() => this.onSelect(65)}
-                  backgroundColor={index===65?"#E8E8E8":"#D3D3D3"} label="Clothing"/>
+                  backgroundColor={index===65?"#E8E8E8":"#FFFFFF"} label="Clothing"/>
           <FlatButton
+                  style={styles.secondaryButton}
                   onClick={() => this.onSelect(66)}
-                  backgroundColor={index===66?"#E8E8E8":"#D3D3D3"} label="Identification"/>
+                  backgroundColor={index===66?"#E8E8E8":"#FFFFFF"} label="Identification"/>
       </div>);
     }
     }
@@ -167,7 +193,8 @@ export default class SecondaryOptions extends React.Component {
 
 
         return (
-        <div>
+        <div style={styles.wrapper}>
+          <div style={styles.text}><h4>Filter by subcategory: </h4></div>
           {this.getOptions(index)}
         </div>
         );
