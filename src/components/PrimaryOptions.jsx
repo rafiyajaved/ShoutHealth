@@ -11,18 +11,25 @@ import FlatButton from 'material-ui/FlatButton';
 import ActionFavorite from 'material-ui/svg-icons/action/favorite';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import ActionHome from 'material-ui/svg-icons/action/home';
+import MapsLocalHospital from 'material-ui/svg-icons/maps/local-hospital';
+import ActionShoppingCart from 'material-ui/svg-icons/action/shopping-cart';
+import SocialSchool from 'material-ui/svg-icons/social/school';
 import ActionPregnantWoman from 'material-ui/svg-icons/action/pregnant-woman';
 import ActionVisibility from 'material-ui/svg-icons/action/visibility';
 import PlacesChildCare from 'material-ui/svg-icons/places/child-care';
+import Icon from './Icon.jsx';
+
+
 
 const styles = {
     hint: {
         color: '#A9A9A9',
     },
     button: {
-        marginTop: 7,
-        marginRight:10,
-        padding:5
+        marginRight:15,
+        display:'flex',
+        flexDirection:'column',
+        textAlign:'center'
     },
     wrapper:{
         zIndex:'0',
@@ -30,7 +37,8 @@ const styles = {
         flexDirection:'row',
         padding:8,
         justifyContent: "left",
-        overflow: 'auto'
+        overflow: 'auto',
+        marginTop:15
     },
     filterButton: {
         color: 'white',
@@ -51,7 +59,7 @@ const styles = {
     raisedButton: {
         position: 'relative',
         zIndex: 0,
-        color:'#FFFFFF'
+        color:'#FFFFFF',
     }
 };
 
@@ -82,7 +90,6 @@ export default class PrimaryOptions extends React.Component {
 
     render() {
         const {container, getselectedIndex, onSelect } = this.props;
-        this.onSelect = onSelect;
         var index = getselectedIndex();
         var { offsetWidth, offsetHeight } = this.state;
         if (offsetWidth=== undefined) {
@@ -95,73 +102,104 @@ export default class PrimaryOptions extends React.Component {
 
         <div style={{width:offsetWidth}}>
         <div style={styles.wrapper}>
-            <div style={styles.button}>
+            <div style={styles.button} >
               <FlatButton
                 backgroundColor={index===100?"#707070":"#000000"}
                 hoverColor='#707070'
-                label="All Results"
                 onTouchTap={()=>onSelect(100)}
                 icon={<ActionHome />}
                 style={styles.raisedButton}/>
+                <h4>View All</h4>
             </div>
             <div style={styles.button}>
               <FlatButton
-                backgroundColor={index===0?"#707070":"#000000"}
-                label="Adult"
+                backgroundColor="#000000"
                 hoverColor='#707070'
                 onTouchTap={()=>onSelect(0)}
+                icon={<Icon icon='Family' icon2='None'/>}
                 style={styles.raisedButton}/>
+                <h4>Adult Health</h4>
             </div>
-            <div style={styles.button}>
+            <div style={styles.button} backgroundColor={index===100?"#707070":"#000000"}>
               <FlatButton
                 backgroundColor={index===1?"#707070":"#000000"}
-                label="Women's Health"
                 hoverColor='#707070'
                 onTouchTap={()=>onSelect(1)}
-                icon={<ActionPregnantWoman />}
+                icon={<Icon icon='Women' icon2='Women2'/>}
                 style={styles.raisedButton}/>
+                <h4>Women's Health</h4>
             </div>
-            <div style={styles.button}>
+            <div style={styles.button} backgroundColor={index===100?"#707070":"#000000"}>
               <FlatButton
                 backgroundColor={index===2?"#707070":"#000000"}
-                label="Child"
                 hoverColor='#707070'
                 onTouchTap={()=>onSelect(2)}
                 icon={<PlacesChildCare />}
                 style={styles.raisedButton}/>
+                <h4>Children and Youth</h4>
             </div>
-            <div style={styles.button}>
+            <div style={styles.button} backgroundColor={index===100?"#707070":"#000000"}>
+              <FlatButton
+                backgroundColor={index===100?"#707070":"#000000"}
+                hoverColor='#707070'
+                onTouchTap={()=>onSelect(100)}
+                icon={<MapsLocalHospital />}
+                style={styles.raisedButton}/>
+                <h4>Emergency</h4>
+            </div>
+            <div style={styles.button} backgroundColor={index===100?"#707070":"#000000"}>
               <FlatButton
                 backgroundColor={index===3?"#707070":"#000000"}
                 hoverColor='#707070'
                 onTouchTap={()=>onSelect(3)}
-                label="Mental Health"
+                icon={<Icon icon='Mental' icon2='None'/>}
                 style={styles.raisedButton}/>
+                <h4>Behavioral Health</h4>
             </div>
-            <div style={styles.button}>
+            <div style={styles.button} backgroundColor={index===100?"#707070":"#000000"}>
               <FlatButton
                 backgroundColor={index===4?"#707070":"#000000"}
                 onTouchTap={()=>onSelect(4)}
                 hoverColor='#707070'
-                label="Dental"
+                icon={<Icon icon='Dental' icon2='None'/>}
                 style={styles.raisedButton}/>
+                <h4>Dental</h4>
             </div>
-            <div style={styles.button}>
+            <div style={styles.button} backgroundColor={index===100?"#707070":"#000000"}>
               <FlatButton
                 backgroundColor={index===5?"#707070":"#000000"}
                 hoverColor='#707070'
-                label="Vision"
                 onTouchTap={()=>onSelect(5)}
                 icon={<ActionVisibility />}
                 style={styles.raisedButton}/>
+                <h4>Vision</h4>
             </div>
-            <div style={styles.button}>
+            <div style={styles.button} backgroundColor={index===100?"#707070":"#000000"}>
               <FlatButton
                 backgroundColor={index===6?"#707070":"#000000"}
-                label="Food, Housing, and other"
                 hoverColor='#707070'
                 onTouchTap={()=>onSelect(6)}
+                icon={<Icon icon='Social' icon2='None'/>}
                 style={styles.raisedButton}/>
+                <h4>Housing</h4>
+            </div>
+            <div style={styles.button} backgroundColor={index===100?"#707070":"#000000"}>
+              <FlatButton
+                backgroundColor={index===6?"#707070":"#000000"}
+                hoverColor='#707070'
+                onTouchTap={()=>onSelect(6)}
+                icon={<SocialSchool />}
+                style={styles.raisedButton}/>
+                <h4>Adult Education</h4>
+            </div>
+            <div style={styles.button} backgroundColor={index===100?"#707070":"#000000"}>
+              <FlatButton
+                backgroundColor={index===6?"#707070":"#000000"}
+                hoverColor='#707070'
+                onTouchTap={()=>onSelect(6)}
+                icon={<ActionShoppingCart />}
+                style={styles.raisedButton}/>
+                <h4>Food Assistance</h4>
             </div>
         </div>
         </div>

@@ -503,7 +503,7 @@ export default class App extends React.Component {
     }
 
     //This function allows user to filter resources based on the selected icon in the footer
-    footerSelect(index) {
+    selectOption(index) {
         //first, go back to the main screen
         this.setState({
             selectedIndex: index
@@ -694,7 +694,7 @@ export default class App extends React.Component {
         this.setState({
             filteredResources: results
         });
-        this.filterNearMe();
+        this.filterNearMe(this.state.filteredResources);
     }
 
     //Register a new user to the database
