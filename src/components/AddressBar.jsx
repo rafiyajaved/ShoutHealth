@@ -1,13 +1,9 @@
 /* jslint node: true, esnext: true */
 'use strict';
 
-import React, {Component} from 'react';
+import React from 'react';
 /*Modules */
 import PlacesAutocomplete from 'react-places-autocomplete'
-import {
-    geocodeByAddress,
-    geocodeByPlaceId
-} from 'react-places-autocomplete'
 import RaisedButton from 'material-ui/RaisedButton';
 import MapsPlace from 'material-ui/svg-icons/maps/place';
 
@@ -31,14 +27,12 @@ const styles = {
     },
 };
 
-export default class AddressBar extends Component {
+export default class AddressBar extends React.Component {
 
 
 render() {
 
-  const { submit, address, onChange, maps }= this.props;
-
-    // window.google.maps = maps;
+  const { submit, address, onChange }= this.props;
 
     const inputProps = {
       value: address,

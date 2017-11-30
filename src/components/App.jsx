@@ -42,6 +42,8 @@ import AddressBar from './AddressBar.jsx';
 import About from './About.jsx';
 import Blog from './Blog.jsx';
 import Help from './Help.jsx';
+import LandingPage from './LandingPage.jsx';
+
 import {
     geocodeByAddress,
     geocodeByPlaceId
@@ -116,9 +118,9 @@ const styles = {
 
 export default class App extends React.Component {
 
-    constructor() {
-        super();
-
+    constructor(props) {
+        super(props);
+        console.log("app props are: ", props)
         // this component's state acts as the overall store for now
         this.state = {
             allResources: [],
@@ -140,7 +142,8 @@ export default class App extends React.Component {
             loggedin: false,
             pendingData: [],
             userinfo:"",
-            shouldShowSearchMenu: false
+            shouldShowSearchMenu: false,
+            shouldShowHeaderAndDrawer: true
         };
     }
 
@@ -286,33 +289,6 @@ export default class App extends React.Component {
       console.log("after delete: ", tempPendingData);
     }
 
-
-    displayMyAccount() {
-        this.changeHeaderInfo("My Account");
-        this.setState({
-            screen: <MyAccount container={this.refs.content}
-                               getLoggedIn={() => this.state.loggedin}
-                               getUserinfo={()=>this.state.userinfo}
-                               changeDoc={(res)=>this.changeDoc(res)}/>
-        });
-
-    }
-
-    displayUpdateDocs() {
-
-      if(this.state.loggedin){
-        this.changeHeaderInfo("Update Docs");
-        this.setState({
-            screen: <UpdateDocs container={this.refs.content}
-                                footer={this.refs.footer}
-                                displaySearch={()=>this.displaySearch}
-                                getFilteredResources={() => this.state.filteredResources}
-                                updateDoc={(res)=>this.updateDoc(res)}/>
-
-        });
-      }
-    }
-
     displayApproveDocs() {
       if(this.state.loggedin) {
         db_pending.allDocs({
@@ -324,7 +300,6 @@ export default class App extends React.Component {
                 return this.error(err);
             }
             console.log("doc is: ", doc)
-            this.changeHeaderInfo("Approve Docs");
             var numRows = doc.total_rows;
             var tempPending = [];
             console.log("doc length is: ", numRows);
@@ -337,34 +312,8 @@ export default class App extends React.Component {
             this.setState({
               pendingData: tempPending
             })
-            this.setState({
-              screen: <ApproveDocs container={this.refs.content}
-                                  footer={this.refs.footer}
-                                  displayResult={(res)=>this.displayResult(res)}
-                                  pendingData={this.state.pendingData}
-                                  changeDoc={(res)=>this.changeDoc(res)}/>
-            })
         });
         }
-    }
-
-    // This function basically updates the single page app to now display the
-    // ClinicPage component. State variables are changed as needed in order to
-    // modify the title and layout of the page.
-    displayResult(result) {
-        const clinicname = result.name;
-        this.changeHeaderInfo(clinicname);
-        this.updateFeedbacks(result.name);
-        this.setState({
-            screen: <ClinicPage container={this.refs.content}
-                                footer={this.refs.footer}
-                                displaySearch={(result) => this.displaySearch()}
-                                addFeedback={(x) => this.addFeedback(x)}
-                                getFeedbacks={()=>this.state.clinicpageFeedbacks}
-                                result={result} vouchFor={(a,b,c)=>this.vouchFor(a,b,c)}
-                                vouchAgainst={(a,b,c)=>this.vouchAgainst(a,b,c)}
-                                addFlag={()=>this.addFlag(a,b)}/>
-        });
     }
 
     // This function basically updates the single page app to now display the
@@ -403,18 +352,6 @@ export default class App extends React.Component {
                                       getselectedIndex={()=>this.state.selectedIndex}
                                       onSelect={(index) => this.selectOption(index)}/>
                         </div>
-        });
-        this.setState({
-            screen: <Main container={this.refs.content}
-                            footer={this.refs.footer}
-                            displayResult={(result) => this.displayResult(result)}
-                            displaySearch={() => this.displaySearch()}
-                            filterResources={(string) => this.filterResources(string)}
-                            getFilteredResources={() => this.state.filteredResources}
-                            getPageLoading={() => this.state.pageLoading}
-                            onGoogleApiLoad={(map, maps) => this.onGoogleApiLoad(map, maps)}
-                            userLat={this.state.userLat} userLng={this.state.userLng}
-                            getSearchstring={()=>this.state.searchString} />
         });
 
     }
@@ -624,29 +561,11 @@ export default class App extends React.Component {
         changesObject.cancel();
     }
 
-    // A function that's called by the React Google Maps library after map
-    // component loads the API Currently doing nothing! shouthealth is not using
-    // geocoder. May be necessary in the future.
-    onGoogleApiLoad(map, maps) {
-        this.setState({
-            gmaps: maps
-        });
-        this.setState({
-            gmap: map
-        });
-        window.google.maps = maps;
-        var geo = new google.maps.Geocoder();
-        this.setState({
-            geocoder: geo
-        });
-    }
-
     getSearchMenu() {
-        if (this.state.shouldShowSearchMenu && this.state.gmaps) {
+        if (this.state.shouldShowSearchMenu) {
             return (
               <div>
-                <AddressBar submit={()=>this.addressSearchSubmit}
-                            maps={this.state.gmaps}
+                <AddressBar submit={()=>this.addressSearchSubmit()}
                             address={this.state.address}
                             onChange={(address)=>this.setState({address})}/>
                 {this.state.searchBar}
@@ -660,14 +579,52 @@ export default class App extends React.Component {
         }
     }
 
-    addressSearchSubmit() {
+    // quick fix to remove header and drawer from the landing page.
+    // definitely not the best way to do this though
+    getHeaderAndDrawer() {
+        if (this.state.shouldShowHeaderAndDrawer) {
+            return (
+                <div>
+                    <div>
+                       <Drawer
+                       open={this.state.showMenu}
+                       docked={false}
+                       onRequestChange={(showMenu) => this.setState({showMenu})}>
+                         <LeftMenu addResource={(res)=>this.addResource(res)}
+                                   displayApproveDocs={()=>this.displayApproveDocs()}
+                                   getUserinfo={()=>this.state.userinfo}/>
+                      </Drawer>
+                   </div>
 
+                    <div id='header'>
+                        <AppBar iconElementLeft={this.state.appbarIcon}
+                                onLeftIconButtonTouchTap={() => this.appbarClick()}
+                                style={styles.appbar}>
+                        <div style={styles.column}>
+                        <div style={styles.row}>
+                          <Link to="/"><img src={pathToLogo} height="60"/> </Link>
+                          <div style={styles.headermenu}>
+                          {this.getMenuOptions()}
+                        </div>
+                        </div>
+                        </div>
+                    </AppBar>
+
+                    </div>
+                </div>
+            )
+        }
+    }
+
+    addressSearchSubmit() {
+        console.log("address is: " + this.state.address);
         var getCoords= new Promise((resolve, reject) =>{
           geocodeByAddress(this.state.address, (err, latLng) => {
                 if (err) {
                     console.log('error geocoding by address:', err)
                     reject(err);
                 }else{
+                    console.log(latLng)
                   this.setState({
                       userLat: latLng.lat
                   });
@@ -746,8 +703,7 @@ export default class App extends React.Component {
                         containerElement={<Link to="/About" />} />
               <MenuItem primaryText="Blog"
                         containerElement={<Link to="/Blog" />}/>
-              <MenuItem primaryText ={"My Account ("+this.state.userinfo.name+")"}
-                        onTouchTap={()=>this.displayMyAccount()} />
+              <MenuItem primaryText ={"My Account ("+this.state.userinfo.name+")"} />
               <MenuItem primaryText ="Help"
                         containerElement={<Link to="/Help" />} />
               <MenuItem primaryText="Logout"/>
@@ -899,6 +855,10 @@ export default class App extends React.Component {
         this.setState({shouldShowSearchMenu: shouldShowSearchMenu})
     }
 
+    setShouldShowHeaderAndDrawer(shouldShowHeaderAndDrawer) {
+        this.setState({shouldShowHeaderAndDrawer: shouldShowHeaderAndDrawer})
+    }
+
     componentDidMount() {
         // may be the wrong place to call these. Might be better to call in
         // component will mount
@@ -910,40 +870,14 @@ export default class App extends React.Component {
 
     render() {
 
-        const ClinicPageWithRouter = withRouter(ClinicPage)
+        const ClinicPageWithRouter = withRouter(ClinicPage);
 
         return (
 
             <MuiThemeProvider muiTheme={getMuiTheme()}>
           <div id='wrapper' style={styles.wrapper}>
 
-          <div>
-             <Drawer
-             open={this.state.showMenu}
-             docked={false}
-             onRequestChange={(showMenu) => this.setState({showMenu})}>
-               <LeftMenu addResource={(res)=>this.addResource(res)}
-                         displayUpdateDocs={()=>this.displayUpdateDocs()}
-                         displayApproveDocs={()=>this.displayApproveDocs()}
-                         getUserinfo={()=>this.state.userinfo}/>
-            </Drawer>
-         </div>
-
-          <div id='header'>
-              <AppBar iconElementLeft={this.state.appbarIcon}
-                      onLeftIconButtonTouchTap={() => this.appbarClick()}
-                      style={styles.appbar}>
-              <div style={styles.column}>
-              <div style={styles.row}>
-                <Link to="/"><img src={pathToLogo} height="60"/> </Link>
-                <div style={styles.headermenu}>
-                {this.getMenuOptions()}
-              </div>
-              </div>
-              </div>
-          </AppBar>
-
-          </div>
+          {this.getHeaderAndDrawer()}
 
           {this.getSearchMenu()}
 
@@ -951,7 +885,6 @@ export default class App extends React.Component {
           <CSSTransitionGroup transitionName='slide'
                               transitionEnterTimeout={ 100 }
                               transitionLeaveTimeout={ 300 }>
-            {/* {this.state.screen} */}
             <Switch>
               <Route exact path="/About" render={(props) => (
                 <About {...props}/>
@@ -988,17 +921,25 @@ export default class App extends React.Component {
               )} />
               <Route exact path="/" render={(props) => (
                   <Main {...props} container={this.refs.content}
-                                  footer={this.refs.footer}
-                                  displayResult={(result) => this.displayResult(result)}
-                                  displaySearch={() => this.displaySearch()}
-                                  filterResources={(string) => this.filterResources(string)}
-                                  getFilteredResources={() => this.state.filteredResources}
-                                  getPageLoading={() => this.state.pageLoading}
-                                  onGoogleApiLoad={(map, maps) => this.onGoogleApiLoad(map, maps)}
-                                  userLat={this.state.userLat} userLng={this.state.userLng}
-                                  getSearchstring={()=>this.state.searchString}
-                                  setShouldShowSearchMenu={(shouldShowSearchMenu)=>this.setShouldShowSearchMenu(shouldShowSearchMenu)}/>
+                                             footer={this.refs.footer}
+                                             displayResult={(result) => this.displayResult(result)}
+                                             displaySearch={() => this.displaySearch()}
+                                             filterResources={(string) => this.filterResources(string)}
+                                             getFilteredResources={() => this.state.filteredResources}
+                                             getPageLoading={() => this.state.pageLoading}
+                                             userLat={this.state.userLat}
+                                             userLng={this.state.userLng}
+                                             getSearchstring={()=>this.state.searchString}
+                                             setShouldShowSearchMenu={(shouldShowSearchMenu)=>this.setShouldShowSearchMenu(shouldShowSearchMenu)}/>
+                      )} />
+              <Route exact path="/LandingPage" render={(props) => (
+                  <LandingPage {...props} submit={()=>this.addressSearchSubmit()}
+                                          address={this.state.address}
+                                          onChange={(address)=>this.setState({address})}
+                                          setShouldShowHeaderAndDrawer={(shouldShowHeaderAndDrawer)=>this.setShouldShowHeaderAndDrawer(shouldShowHeaderAndDrawer)} />
+                )} />
               )} />
+
             </Switch>
           </CSSTransitionGroup>
           </div>

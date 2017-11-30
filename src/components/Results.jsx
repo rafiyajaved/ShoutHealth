@@ -86,8 +86,6 @@ export default class Results extends React.Component {
                 <TableRow
                   key={i}
                   >
-                  {/* // onClick={() => displayResult()}> */}
-                  {/* > */}
                   <TableRowColumn>
                   <div style={{display:'flex',flexDirection:'row'}}><h3>{(i+1)+".  "+result.name}</h3><div style={styles.dist}>({this.calculateDistance(result)+" mi"})</div></div>
                   <div><b>Type: </b>{result.resourcetype+" "}<div style={styles.dist}>({result.numberreviews+" reviews"})</div></div>
@@ -114,10 +112,15 @@ export default class Results extends React.Component {
 
     render() {
 
-        const { getFilteredResources, displayResult, displaySearch, getTags, getPageLoading, displayAddResource, getSearchstring } = this.props;
+        const { getFilteredResources,
+                getTags,
+                getPageLoading,
+                displayAddResource,
+                getSearchstring } = this.props;
         var filteredResources = getFilteredResources();
         var pageLoading=getPageLoading();
         var searchstring=getSearchstring();
+        console.log("search string is: " + searchstring)
 
         return (
         <div>
@@ -126,7 +129,6 @@ export default class Results extends React.Component {
         selectable={false}
         fixedHeader={true}
         style={styles.table}
-        // onCellClick={(rowNumber, columnID) => displayResult(filteredResources[rowNumber])}>
         onCellClick={(rowNumber, columnID) => this.handleClick(rowNumber)}>
         <TableBody
             displayRowCheckbox={false}

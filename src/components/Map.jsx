@@ -10,15 +10,23 @@ export default class Map extends React.Component {
 
     constructor(props) {
         super(props);
-
+        let userLat = Number(props.userLat);
+        let userLng = Number(props.userLng);
         this.defaults = {
-            center: { lat: 33.7490, lng: -84.3880 },
+            center: { lat: userLat, lng: userLng },
             zoom: 10,
         };
 
         this.state = {
-          clicked:-10
+            center: { lat: userLat, lng: userLng },
+            clicked:-10
         }
+    }
+
+    componentWillReceiveProps(newProps) {
+        let userLat = Number(newProps.userLat);
+        let userLng = Number(newProps.userLng);
+        this.setState({center: { lat: userLat, lng: userLng }})
     }
 
     onChildClick(key, childProps) {
@@ -32,20 +40,17 @@ export default class Map extends React.Component {
 
     render() {
         const { width, height } = this.props;
-        const { getFilteredResources, displayResult, userLat, userLng, onGoogleApiLoad } = this.props;
+        const { getFilteredResources, displayResult, userLat, userLng } = this.props;
         const filteredResources = getFilteredResources();
 
         const map = (
             <div style={{height,width}}>
          <GoogleMap
             defaultCenter={this.defaults.center}
+            center={this.state.center}
             defaultZoom={this.defaults.zoom}
             hoverDistance={20}
-            bootstrapURLKeys={{
-            key: 'AIzaSyClWk0ocan4KfAoOA51Z0HDdIa847fhpTM',
-            libraries : 'places'}}
             onChildClick={(key, childProp)=>this.onChildClick(key, childProp)}
-            onGoogleApiLoaded={({map, maps}) => onGoogleApiLoad(map, maps)}
             yesIWantToUseGoogleMapApiInternals>
 
             {filteredResources.map((result, i) =>

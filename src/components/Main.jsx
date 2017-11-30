@@ -9,6 +9,8 @@ import { cyan300, indigo900 } from 'material-ui/styles/colors';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 
+const queryString = require('query-string');
+
 import {withRouter, Link} from 'react-router-dom';
 const styles={
 
@@ -31,11 +33,12 @@ const styles={
 export default class Main extends React.Component {
     constructor(props) {
         super(props);
-        console.log(props)
         props.setShouldShowSearchMenu(true);
+        const parsedQueries = queryString.parse(props.location.search);
         this.state = {
-          viewList:false,
-          switchButton:false
+          viewList: false,
+          switchButton: false,
+          searchString: parsedQueries.query
         };
     }
 
@@ -80,13 +83,16 @@ export default class Main extends React.Component {
         this.setState({ mapWidth, resultWidth, offsetHeight, offsetWidth});
     }
 
+    getSearchString() {
+        return this.state.searchString;
+    }
+
     render() {
         const ResultsWithRouter = withRouter(Results);
         const { displayResult,
                 displayAddResource,
                 displaySearch,
                 filterResources,
-                onGoogleApiLoad,
                 getSearchstring,
                 getFilteredResources,
                 getPageLoading,
@@ -101,14 +107,26 @@ export default class Main extends React.Component {
         return (
           <div style={styles.wrapper}>
             <div style={{width: resultWidth, height: offsetHeight, overflow: 'auto', paddingLeft:10, paddingRight:5}}>
-              <ResultsWithRouter height={offsetHeight} getFilteredResources={getFilteredResources} displayResult={displayResult} displaySearch={displaySearch} displayAddResource={displayAddResource} getPageLoading={getPageLoading} getSearchstring={getSearchstring}  userLat={userLat} userLng={userLng}/>
+              <ResultsWithRouter height={offsetHeight}
+                                 getFilteredResources={getFilteredResources}
+                                 displayAddResource={displayAddResource}
+                                 getPageLoading={getPageLoading}
+                                 getSearchstring={getSearchstring}
+                                 userLat={userLat}
+                                 userLng={userLng}/>
 
             </div>
 
             <div style={styles.map}>
-              <Map width={mapWidth} height={offsetHeight} getFilteredResources={getFilteredResources} displayResult={displayResult} onGoogleApiLoad={onGoogleApiLoad} userLat={userLat} userLng={userLng} center={[userLat,userLng]}/>
+              <Map width={mapWidth}
+                   height={offsetHeight}
+                   getFilteredResources={getFilteredResources}
+                   displayResult={displayResult}
+                   userLat={userLat}
+                   userLng={userLng}
+                   center={[userLat,userLng]}/>
             </div>
-            {this.state.switchButton?<SwitchViewButton switchView={()=>this.switchView()} getView={()=>this.state.viewList}/>:" "}
+            {this.state.switchButton ? <SwitchViewButton switchView={()=>this.switchView()} getView={()=>this.state.viewList}/>:" "}
             <div style={{zIndex:1, bottom:'2%', right:'10%', position:'absolute', padding:'10px'}}>
                         <FloatingActionButton
                           backgroundColor='#000000'
