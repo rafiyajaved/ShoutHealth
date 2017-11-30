@@ -308,6 +308,7 @@ export default class ClinicPage extends React.Component {
 
     }
 
+
     render() {
 
         const { getFeedbacks, vouchFor, vouchAgainst, addFlag, getFilteredResources,

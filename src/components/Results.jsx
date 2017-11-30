@@ -69,9 +69,10 @@ export default class Results extends React.Component {
 
     }
 
-    handleClick(rowNumber) {
+    handleClick(rowNumber, filteredResources) {
       console.log(rowNumber);
-      this.props.history.push('/ClinicPage/' + rowNumber);
+      var resultName=filteredResources[rowNumber].name;
+      this.props.history.push('/ClinicPage/' + rowNumber+"/"+resultName);
     }
 
 //This method returns the filteredResources formatted as a table of results
@@ -129,7 +130,7 @@ export default class Results extends React.Component {
         selectable={false}
         fixedHeader={true}
         style={styles.table}
-        onCellClick={(rowNumber, columnID) => this.handleClick(rowNumber)}>
+        onCellClick={(rowNumber, columnID) => this.handleClick(rowNumber, filteredResources)}>
         <TableBody
             displayRowCheckbox={false}
             showRowHover={true}>

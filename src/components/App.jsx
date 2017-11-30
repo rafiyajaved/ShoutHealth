@@ -53,7 +53,7 @@ import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 
-const pathToLogo = require('../img/logo.png');
+const pathToLogo = require('../img/transparent-logo.png');
 
 import PouchDB from 'pouchdb';
 import PouchDBQuickSearch from 'pouchdb-quick-search';
@@ -80,14 +80,15 @@ const styles = {
     appbar: {
       backgroundColor:'transparent',
       overflow:'hidden',
-      maxHeight:65
     },
     appbarTitle: {
-        paddingTop: 7,
-        paddingLeft:5,
-        color: '#000000',
-        fontSize: 40,
-        overflow: 'hidden'
+        display: 'flex',
+        flexDirection: 'row',
+        position: 'absolute',
+        color: 'black',
+        overflow: 'hidden',
+        marginLeft:10,
+        fontSize:20
     },
     row: {
         display: 'flex',
@@ -104,8 +105,7 @@ const styles = {
         paddingTop:7,
         display: 'flex',
         flexDirection: 'row',
-        fontColor: '#FFFFFF',
-        flexWrap:'wrap'
+        fontColor: '#FFFFFF'
     },
     headerlinks: {
         color: '#FFFFFF'
@@ -130,7 +130,7 @@ export default class App extends React.Component {
             searchString: '',
             appbarState: false,
             selectedIndex: 0,
-            appbarTitle: 'Shout',
+            appbarTitle: 'ShoutHealth',
             appbarIcon: <NavigationMenu />,
             searchBar: "",
             searchBar2: "",
@@ -600,14 +600,13 @@ export default class App extends React.Component {
                         <AppBar iconElementLeft={this.state.appbarIcon}
                                 onLeftIconButtonTouchTap={() => this.appbarClick()}
                                 style={styles.appbar}>
-                        <div style={styles.column}>
-                        <div style={styles.row}>
-                          <Link to="/"><img src={pathToLogo} height="60"/> </Link>
+                          <div style={styles.appbarTitle}>
+                              <Link to="/"><img src={pathToLogo}/></Link>
+                              <p>{this.state.appbarTitle}</p>
+                          </div>
                           <div style={styles.headermenu}>
-                          {this.getMenuOptions()}
-                        </div>
-                        </div>
-                        </div>
+                            {this.getMenuOptions()}
+                          </div>
                     </AppBar>
 
                     </div>
@@ -908,7 +907,7 @@ export default class App extends React.Component {
                              addResource={(x) => this.addResource(x)}
                              displaySearch={()=>this.displaySearch()}/>
               )} />
-              <Route path="/ClinicPage/:rowNumber" render={(props) => (
+              <Route path="/ClinicPage/:rowNumber/:resultName" render={(props) => (
                 <ClinicPageWithRouter {...props} container={this.refs.content}
                             footer={this.refs.footer}
                             displaySearch={(result) => this.displaySearch()}
@@ -919,7 +918,7 @@ export default class App extends React.Component {
                             vouchAgainst={(a,b,c)=>this.vouchAgainst(a,b,c)}
                             addFlag={()=>this.addFlag(a,b)}/>
               )} />
-              <Route exact path="/" render={(props) => (
+              <Route exact path="/home" render={(props) => (
                   <Main {...props} container={this.refs.content}
                                              footer={this.refs.footer}
                                              displayResult={(result) => this.displayResult(result)}
@@ -932,7 +931,7 @@ export default class App extends React.Component {
                                              getSearchstring={()=>this.state.searchString}
                                              setShouldShowSearchMenu={(shouldShowSearchMenu)=>this.setShouldShowSearchMenu(shouldShowSearchMenu)}/>
                       )} />
-              <Route exact path="/LandingPage" render={(props) => (
+              <Route exact path="/" render={(props) => (
                   <LandingPage {...props} submit={()=>this.addressSearchSubmit()}
                                           address={this.state.address}
                                           onChange={(address)=>this.setState({address})}
