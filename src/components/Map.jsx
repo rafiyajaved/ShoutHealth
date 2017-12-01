@@ -63,6 +63,7 @@ export default class Map extends React.Component {
                           lng={result.lng}
                           text={i+1}
                           placename={result.name}
+                          youAreHere={false}
                           address={result.civic_address}/>
                           )}
 
@@ -71,7 +72,7 @@ export default class Map extends React.Component {
                   resource={" "}
                   lat={userLat}
                   lng={userLng}
-                  text={"You"}
+                  youAreHere={true}
                   key={-1}
                   placename={"current location"} />
 

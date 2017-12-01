@@ -16,17 +16,18 @@ import AppBar from 'material-ui/AppBar';
 const pathToBackground = require('../img/background.jpg');
 const pathToLogo = require('../img/transparent-logo.png');
 
+
 const style = {
 
     appbar: {
-      backgroundColor:'transparent',
+      backgroundColor:'white',
       overflow:'hidden',
     },
     appbarTitle: {
         display: 'flex',
         flexDirection: 'row',
         position: 'absolute',
-        color: 'white',
+        color: 'black',
         overflow: 'hidden',
         marginLeft:10,
         fontSize:20
