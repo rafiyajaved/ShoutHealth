@@ -37,10 +37,9 @@ import {
 const styles = {
 
     main: {
-        display: 'flex',
-        flexDirection: 'row',
-        width: '100%',
-        alignment: 'right',
+        margin: 'auto',
+        padding: '1% 2% 5% 5%',
+        width:'50%',
         overflow: 'auto'
     },
 
@@ -62,7 +61,7 @@ const styles = {
 
 const MIN_PASSWORD_LEN = 8;
 
-export default class LoginRegister extends React.Component {
+export default class Register extends React.Component {
 
 
     constructor() {
@@ -169,19 +168,13 @@ export default class LoginRegister extends React.Component {
     }
 
     searchSizer() {
-        const {
-            container
-        } = this.props;
-        const {
-            offsetHeight,
-            offsetWidth
-        } = container;
+        var offsetHeight = document.getElementById('content').clientHeight
+        var offsetWidth = document.getElementById('content').clientWidth
         this.setState({
             offsetHeight,
             offsetWidth
         });
     }
-
     componentDidMount() {
         this.searchSizer();
         window.addEventListener('resize', () => this.searchSizer(), false);
@@ -215,14 +208,6 @@ export default class LoginRegister extends React.Component {
         this.getLoggedIn = getLoggedIn;
         this.getRegistered = getRegistered;
 
-        const {
-            offsetWidth,
-            offsetHeight
-        } = this.state;
-        if (offsetHeight === undefined) {
-            return null;
-        }
-
         Formsy.addValidationRule('isCustom', (values, value) => {
 
             var regobj = /^[a-zA-Z0-9,.!?')( ]*$/;
@@ -238,19 +223,16 @@ export default class LoginRegister extends React.Component {
 
         return (
 
-            <div style={{display:'flex', flexDirection:'row', width:'100%'}}>
           <Formsy.Form
               onValid={()=>this.setState({ canSubmit: true })}
               onInvalid={()=>this.setState({ canSubmit: false })}
               onValidSubmit={()=>this.submitForm}
               onInvalidSubmit={()=>this.notifyFormError}
             >
-        <div style={{height: (offsetHeight), overflow: 'auto'}}>
         <div style={styles.main}>
 
 
 
-                </div>
 
                 <div style={styles.section}>
                 <h3> Register</h3>
@@ -371,97 +353,7 @@ export default class LoginRegister extends React.Component {
                               </Dialog>
           </div>
       </Formsy.Form>
-      <Formsy.Form
-          onValid={()=>this.setState({ canLogin: true })}
-          onInvalid={()=>this.setState({ canLogin: false })}
-          onValidSubmit={()=>this.submitForm}
-          onInvalidSubmit={()=>this.notifyFormError}
-        >
-    <div style={{height: (offsetHeight), overflow: 'auto'}}>
-    <div style={styles.main}>
 
-
-
-            </div>
-
-            <div style={styles.section}>
-            <h3> Login</h3>
-
-
-              <div>
-              <b>Username</b>
-                <Paper style={styles.input}>
-
-                  <FormsyText
-                    name="name"
-                    validations="isCustom"
-                    validationError={customError}
-                    required
-                    hintText="Username"
-                    hintStyle={styles.hint}
-                    onChange={(event) => this.setState({usernameL: event.target.value})}
-                  />
-                </Paper>
-
-
-                  <b>Password</b>
-                      <Paper style={styles.input}>
-
-                        <FormsyText
-                          name="password"
-                          type="password"
-                          validations="isPassword"
-                          required
-                          hintText="Password"
-                          hintStyle={styles.hint}
-                          onChange={(event) => this.setState({passwordL: event.target.value})}
-                        />
-                      </Paper>
-              </div>
-
-
-                  <br />
-                  <br />
-                    <RaisedButton
-                        label="Login"
-                        type="Submit"
-                        primary={true}
-                        disabled={!this.state.canLogin}
-                        onClick={()=>this.handleLogin()}/>
-                      {this.state.canLogin? "":<b> Please fill out required fields to login</b>}
-          </div>
-
-                              <Dialog
-                                title="Login Successful"
-                                  actions={<FlatButton
-                                  label="Close"
-                                  primary={true}
-                                  onTouchTap={() => { this.setState({loginSuccess: false});
-                                                      displaySearch();
-                                                      }}/>}
-                                  modal={false}
-                                  open={this.state.loginSuccess}
-                                  onRequestClose={()=>{this.setState({loginSuccess: false})}}>
-                                Successfully logged in.
-                              </Dialog>
-
-                              <Dialog
-                                title="Error"
-                                  actions={<FlatButton
-                                  label="Close"
-                                  primary={true}
-                                  keyboardFocused={true}
-                                  onTouchTap={() => this.setState({loginError: false})}/>}
-                                  modal={false}
-                                  open={this.state.loginError}
-                                  onRequestClose={()=>this.setState({loginError:false})}
-                                  >
-                                Wrong username or password {this.state.error}
-                              </Dialog>
-
-      </div>
-  </Formsy.Form>
-  </div>
         );
     }
 }

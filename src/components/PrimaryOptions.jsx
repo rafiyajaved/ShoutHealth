@@ -140,9 +140,9 @@ export default class PrimaryOptions extends React.Component {
             </div>
             <div style={styles.button} backgroundColor={index===100?"#707070":"#000000"}>
               <FlatButton
-                backgroundColor={index===100?"#707070":"#000000"}
+                backgroundColor={index===9?"#707070":"#000000"}
                 hoverColor='#707070'
-                onTouchTap={()=>onSelect(100)}
+                onTouchTap={()=>onSelect(9)}
                 icon={<MapsLocalHospital />}
                 style={styles.raisedButton}/>
                 <h4>Emergency</h4>
@@ -185,21 +185,21 @@ export default class PrimaryOptions extends React.Component {
             </div>
             <div style={styles.button} backgroundColor={index===100?"#707070":"#000000"}>
               <FlatButton
-                backgroundColor={index===6?"#707070":"#000000"}
+                backgroundColor={index===7?"#707070":"#000000"}
                 hoverColor='#707070'
-                onTouchTap={()=>onSelect(6)}
-                icon={<SocialSchool />}
+                onTouchTap={()=>onSelect(7)}
+                icon={<ActionShoppingCart />}
                 style={styles.raisedButton}/>
-                <h4>Adult Education</h4>
+                <h4>Food and Utilities</h4>
             </div>
             <div style={styles.button} backgroundColor={index===100?"#707070":"#000000"}>
               <FlatButton
-                backgroundColor={index===6?"#707070":"#000000"}
+                backgroundColor={index===8?"#707070":"#000000"}
                 hoverColor='#707070'
-                onTouchTap={()=>onSelect(6)}
-                icon={<ActionShoppingCart />}
+                onTouchTap={()=>onSelect(8)}
+                icon={<SocialSchool />}
                 style={styles.raisedButton}/>
-                <h4>Food Assistance</h4>
+                <h4>Education, Employment, Identification</h4>
             </div>
         </div>
         </div>

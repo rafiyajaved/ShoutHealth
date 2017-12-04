@@ -23,7 +23,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import Dialog from 'material-ui/Dialog';
 import TextField from 'material-ui/TextField';
 
-import {Switch, Route, Link, withRouter} from 'react-router-dom';
+import {Switch, Route, Link, withRouter, BrowserRouter} from 'react-router-dom';
 
 //import other components
 import Main from './Main.jsx';
@@ -35,7 +35,8 @@ import Logout from './Logout.jsx';
 import ApproveDocs from './ApproveDocs.jsx';
 import ClinicPage from './ClinicPage.jsx';
 import AddResource from './AddResource.jsx';
-import LoginRegister from './LoginRegister.jsx';
+import Login from './Login.jsx';
+import Register from './Register.jsx';
 import UpdateDocs from './UpdateDocs.jsx';
 import MyAccount from './MyAccount.jsx';
 import AddressBar from './AddressBar.jsx';
@@ -268,12 +269,10 @@ export default class App extends React.Component {
     // the action depends on whether the user is currently on the main/landing
     // page or a clinic page result
     appbarClick() {
-        if (!this.state.appbarState) {
+        if (this.state.shouldShowSearchMenu) {
             this.setState({
                 showMenu: !this.state.showMenu
             });
-        } else {
-            this.displaySearch();
         }
     }
 
@@ -570,7 +569,7 @@ export default class App extends React.Component {
                 {this.state.searchBar}
               </div>
                 )
-        }else if(!this.state.appbarState){
+        }else {
           return (
             <div>
             </div>
@@ -715,8 +714,10 @@ export default class App extends React.Component {
                         containerElement={<Link to="/About" />} />
               <MenuItem primaryText="Blog"
                         containerElement={<Link to="/Blog" />}/>
-              <MenuItem primaryText ="Login/Register"
-                        containerElement={<Link to="/LoginRegister" />} />
+              <MenuItem primaryText ="Login"
+                        containerElement={<Link to="/Login" />} />
+              <MenuItem primaryText ="Register"
+                        containerElement={<Link to="/Register" />} />
               <MenuItem primaryText ="Help"
                         containerElement={<Link to="/Help" />} />
             </IconMenu>
@@ -848,6 +849,10 @@ export default class App extends React.Component {
         }
     }
 
+    setAppbarIcon(appbarIcon) {
+        this.setState({appbarIcon: appbarIcon})
+    }
+
     setShouldShowSearchMenu(shouldShowSearchMenu) {
         this.setState({shouldShowSearchMenu: shouldShowSearchMenu})
     }
@@ -892,8 +897,16 @@ export default class App extends React.Component {
               <Route exact path="/Blog" render={(props) => (
                 <Blog {...props} container={this.refs.content}/>
               )} />
-              <Route exact path="/LoginRegister" render={(props) => (
-                <LoginRegister {...props} container={this.refs.content}
+              <Route exact path="/Login" render={(props) => (
+                <Login {...props} container={this.refs.content}
+                                       displaySearch={() => this.displaySearch()}
+                                       registerNew={(user,metadata)=>this.registerNew(user,metadata)}
+                                       loginUser={(user,callback)=>this.loginUser(user,callback)}
+                                       getLoggedIn={()=>this.state.loggedin}
+                                       getRegistered={()=>this.state.registered}/>
+              )} />
+              <Route exact path="/Register" render={(props) => (
+                <Register {...props} container={this.refs.content}
                                        displaySearch={() => this.displaySearch()}
                                        registerNew={(user,metadata)=>this.registerNew(user,metadata)}
                                        loginUser={(user,callback)=>this.loginUser(user,callback)}
@@ -914,6 +927,7 @@ export default class App extends React.Component {
                             getFilteredResources={() => this.state.filteredResources}
                             vouchFor={(a,b,c)=>this.vouchFor(a,b,c)}
                             vouchAgainst={(a,b,c)=>this.vouchAgainst(a,b,c)}
+                            setAppbarIcon={(appbarIcon)=>this.setAppbarIcon(appbarIcon)}
                             addFlag={()=>this.addFlag(a,b)}/>
               )} />
               <Route exact path="/home" render={(props) => (

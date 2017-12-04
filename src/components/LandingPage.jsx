@@ -15,7 +15,7 @@ import AppBar from 'material-ui/AppBar';
 
 const pathToBackground = require('../img/background.jpg');
 const pathToLogo = require('../img/transparent-logo.png');
-
+const pathToLogoSmall = require('../img/logo.png');
 
 const style = {
 
@@ -132,9 +132,13 @@ export default class LandingPage extends React.Component {
               </div>
               <div style={style.headermenu}>
                 <RaisedButton
-                  label ="Sign In/Register"
+                  label ="Sign up"
                   style={{margin:5}}
-                  containerElement={<Link to="/LoginRegister" />}/>
+                  containerElement={<Link to="/Register" />}/>
+                <RaisedButton
+                  label ="Login"
+                  style={{margin:5}}
+                  containerElement={<Link to="/Login" />}/>
               </div>
               </AppBar>
                 <div style={style.titleText}> Over 400 Community Health and Social Resources </div>

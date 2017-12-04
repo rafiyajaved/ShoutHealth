@@ -35,12 +35,14 @@ import MenuItem from 'material-ui/MenuItem';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import MapsLocalPrintshop from 'material-ui/svg-icons/maps/local-printshop';
 import SMSButton from './SMSButton.jsx';
+import {Link} from 'react-router-dom';
 
 
 import ArrowDropRight from 'material-ui/svg-icons/navigation-arrow-drop-right';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import NavigationArrowUpward from 'material-ui/svg-icons/navigation/arrow-upward';
 import NavigationArrowDownward from 'material-ui/svg-icons/navigation/arrow-downward';
+import NavigationChevronLeft from 'material-ui/svg-icons/navigation/chevron-left';
 
 //Formsy-React is a library used for input validation in this web app
 //See more at https://github.com/christianalfoni/formsy-react
@@ -89,6 +91,13 @@ const styles = {
         padding: 0
     },
 
+    backButton:{
+      margin: 4,
+      padding:10,
+      style:'none',
+      fontColor:'black',
+      textDecoration:'None'
+    },
     main: {
 
         width: '100%',
@@ -142,7 +151,6 @@ export default class ClinicPage extends React.Component {
         super(props);
 
         this.result = this.props.getFilteredResources()[props.match.params.rowNumber];
-        console.log(this.result)
 
         this.state = {
 
@@ -176,7 +184,6 @@ export default class ClinicPage extends React.Component {
     componentDidMount() {
         this.searchSizer();
         window.addEventListener('resize', () => this.searchSizer(), false);
-        // console.log("this result is: " + thid)
     }
 
     componentWillUnmount() {
@@ -312,7 +319,7 @@ export default class ClinicPage extends React.Component {
     render() {
 
         const { getFeedbacks, vouchFor, vouchAgainst, addFlag, getFilteredResources,
-                addFeedback, displayVoucher } = this.props;
+                addFeedback, displayVoucher} = this.props;
         const { customError, wordsError, numericError, urlError } = this.errorMessages;
         const { offsetWidth, offsetHeight} = this.state;
         const result = this.result;
@@ -328,6 +335,7 @@ export default class ClinicPage extends React.Component {
             <div style={{height: (offsetHeight), overflow: 'auto'}}>
       <Paper style={styles.main} zDepth={1}>
 
+      <Link to="/home"><div style={styles.backButton}><NavigationChevronLeft/>Return to Search</div></Link>
 {/* ***************************************** */}
 {/* Section 1 */}
 {/* ***************************************** */}
