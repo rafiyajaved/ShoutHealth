@@ -5,7 +5,6 @@ The main component with the app's actions and 'store.'
 **/
 import React from 'react';
 import CSSTransitionGroup from 'react-addons-css-transition-group';
-import injectTapEventPlugin from 'react-tap-event-plugin';
 
 /*Material-UI theme*/
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
@@ -27,9 +26,6 @@ import {Switch, Route, Link, withRouter} from 'react-router-dom';
 
 //import other components
 import Main from './Main.jsx';
-import PrimaryOptions from './PrimaryOptions.jsx';
-import SecondaryOptions from './SecondaryOptions.jsx';
-import Footer from './Footer.jsx';
 import LeftMenu from './LeftMenu.jsx';
 import Logout from './Logout.jsx';
 import ApproveDocs from './ApproveDocs.jsx';
@@ -38,7 +34,6 @@ import AddResource from './AddResource.jsx';
 import LoginRegister from './LoginRegister.jsx';
 import UpdateDocs from './UpdateDocs.jsx';
 import MyAccount from './MyAccount.jsx';
-import AddressBar from './AddressBar.jsx';
 import About from './About.jsx';
 import Blog from './Blog.jsx';
 import Help from './Help.jsx';
@@ -54,26 +49,6 @@ import MenuItem from 'material-ui/MenuItem';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 
 const pathToLogo = require('../img/logo.png');
-
-import PouchDB from 'pouchdb';
-import PouchDBQuickSearch from 'pouchdb-quick-search';
-PouchDB.plugin(PouchDBQuickSearch);
-PouchDB.plugin(require('pouchdb-authentication'));
-
-/*PouchDB server*/
-//Create local & remote server, and then sync these. See PouchDB docs at http://pouchdb.com/api.html
-
-var db = new PouchDB('quality_resources');
-var remoteCouch = 'https://shouthealth.org/couchdb/quality_resources';
-PouchDB.replicate(remoteCouch,db);
-
-var db_pending = new PouchDB('resourcespending');
-var remoteCouchPending = 'https://shouthealth.org/couchdb/resourcespending';
-PouchDB.sync(db_pending, remoteCouchPending);
-
-var feedback= new PouchDB('feedback');
-var remoteFeedback = 'https://shouthealth.org/couchdb/feedback';
-PouchDB.sync(feedback, remoteFeedback);
 
 const styles = {
 
@@ -125,24 +100,23 @@ export default class App extends React.Component {
         this.state = {
             allResources: [],
             address: "Atlanta, GA",
-            filteredResources: [],
+            // filteredResources: [],
             showMenu: false, //toggles left-hand menu
             searchString: '',
             appbarState: false,
-            selectedIndex: 0,
+            // selectedIndex: 0,
             appbarTitle: 'Shout',
             appbarIcon: <NavigationMenu />,
-            searchBar: "",
-            searchBar2: "",
+            // searchBar: "",
             pageLoading: 'true', //true if page has not loaded yet
-            userLat: '33.7490',
-            userLng: '-84.3880',
+            // userLat: '33.7490',
+            // userLng: '-84.3880',
             clinicpageTags: [],
             clinicpageFeedbacks: [],
             loggedin: false,
             pendingData: [],
             userinfo:"",
-            shouldShowSearchMenu: false,
+            // shouldShowSearchMenu: false,
             shouldShowHeaderAndDrawer: true
         };
     }
@@ -331,7 +305,7 @@ export default class App extends React.Component {
                 this.setState({
                     pageLoading: false
                 });
-                this.redrawResources(doc.rows);
+                // this.redrawResources(doc.rows);
             }
         });
         this.setState({
@@ -343,197 +317,12 @@ export default class App extends React.Component {
         this.setState({
             appbarIcon: <NavigationMenu />
         });
-        this.setState({
-            searchBar: <div>
-                        <PrimaryOptions container={this.refs.content}
-                                      getselectedIndex={()=>this.state.selectedIndex}
-                                      onSelect={(index) => this.selectOption(index)}/>
-                        <SecondaryOptions container={this.refs.content}
-                                      getselectedIndex={()=>this.state.selectedIndex}
-                                      onSelect={(index) => this.selectOption(index)}/>
-                        </div>
-        });
-
     }
 
     //Error method
     error(err) {
         console.warn('ERROR(' + err.code + '): ' + err.message);
     }
-
-    //This filter method uses the Pouchdb-Quick-Search library
-    //See:  http://github.com/nolanlawson/pouchdb-quick-search
-    filterResources(searchString, searchType) {
-      var matches = [];
-      this.setState({
-            searchString: searchString
-      });
-        if (searchType==="all") {
-            db.allDocs({
-                include_docs: true
-            }, (err, doc) => {
-                if (err) {
-                    return console.log(err);
-                }
-                doc.rows.forEach(function (res) {
-                      matches.push(res);
-                });
-            this.redrawResources(matches);
-            });
-        } else if(searchType==="any"){
-            db.search({
-                query: searchString,
-                fields: ['resourcetype', 'description'],
-                include_docs: true,
-                highlighting: true,
-            }, (err, list) => {
-                if (err) {
-                    this.error(err);
-                }
-                list.rows.forEach(function (res) {
-                            matches.push(res);
-
-                });
-            this.redrawResources(matches);
-            });
-        } else if(searchType==="services"){
-
-            db.allDocs({
-                include_docs: true
-            }, (err, doc) => {
-                  if (err) {
-                      return this.error(err);
-                  }
-                  doc.rows.forEach(function (res) {
-                    for (var category in res.doc.services) {
-                      var arrayLength = res.doc.services[category].length;
-                      var arrItems=res.doc.services[category];
-                      for (var i = 0; i < arrayLength; i++) {
-                          if(arrItems[i]['label'].indexOf(searchString)!==-1&&arrItems[i]['adminvotes']!="0"){
-                            matches.push(res);
-                          }
-                      }
-                    }
-                  });
-            this.redrawResources(matches);
-            });
-        } else if(searchType==="population"){
-
-            db.allDocs({
-                include_docs: true
-            }, (err, doc) => {
-                  if (err) {
-                      return this.error(err);
-                  }
-                  doc.rows.forEach(function (res) {
-                      var arrItems=res.doc.population;
-                      for (var i = 0; i < arrItems.length; i++) {
-                          if(arrItems[i]['label'].indexOf(searchString)!==-1&&arrItems[i]['adminvotes']!="0"){
-                            matches.push(res);
-                          }
-                      }
-
-                  });
-            this.redrawResources(matches);
-            });
-        }
-    }
-
-    //This function allows user to filter resources based on the selected icon in the footer
-    selectOption(index) {
-        //first, go back to the main screen
-        this.setState({
-            selectedIndex: index
-        });
-        if (index === 100) {
-            this.filterResources('', "all");
-        } else if (index === 0) {
-            this.filterResources('Adults', "population");
-        } else if (index === 1) {
-            this.filterResources('Women', "population");
-        } else if (index === 2) {
-            this.filterResources('Children', "population");
-        } else if (index === 3) {
-            this.filterResources('mental health', "services");
-        } else if (index === 4) {
-            this.filterResources('dental', "services");
-        } else if (index === 5) {
-            this.filterResources('vision', "services");
-        } else if (index === 6) {
-            this.filterResources('housing', "any");
-        }
-
-         else if (index === 7) {
-            this.filterResources('check-up', "services");
-        }  else if (index === 8) {
-            this.filterResources('emergency', "any");
-        }  else if (index === 9) {
-            this.filterResources('chronic disease', "services");
-        }  else if (index === 9) {
-            this.filterResources('STD testing', "services");
-        }
-
-         else if (index ===11) {
-            this.filterResources('pregnancy', "services");
-        } else if (index ===11) {
-           this.filterResources('pap smear', "services");
-       } else if (index ===11) {
-          this.filterResources('mammogram', "services");
-      } else if (index ===11) {
-         this.filterResources('birth control', "services");
-     }
-
-     else if (index ===21) {
-        this.filterResources('immunization', "services");
-     }else if (index ===22) {
-        this.filterResources('pediatric check-up', "services");
-     }
-
-    }
-
-    //This function sorts resources based on the distance
-    filterNearMe(resourcestoFilter) {
-
-        var originalArray = resourcestoFilter;
-
-        // split original array into 2 arrays, one for locations with coordinates
-        // one for without it
-        var validCoordination = [],
-            invalidCoordination = [];
-        for (var i = 0; i < originalArray.length; i++) {
-            if (originalArray[i].lat && originalArray[i].lng) {
-                validCoordination.push(originalArray[i]);
-            } else {
-                invalidCoordination.push(originalArray[i]);
-            }
-        }
-
-        validCoordination.sort((a, b) => {
-            if (a.lat && b.lat && b.lng && a.lng) {
-                var a_distance = Math.pow((this.state.userLat - a.lat), 2) +
-                                 Math.pow((this.state.userLng - a.lng), 2);
-                var b_distance = Math.pow((this.state.userLat - b.lat), 2) +
-                                 Math.pow((this.state.userLng - b.lng), 2);
-                var diff = a_distance - b_distance;
-                return diff;
-            } else {
-                return 10000;
-            }
-        });
-
-        // append back those 2 arrays
-        var arrSorted = [];
-        for (var i = 0; i < validCoordination.length; i++) {
-            arrSorted.push(validCoordination[i]);
-        }
-        for (var i = 0; i < invalidCoordination.length; i++) {
-            arrSorted.push(invalidCoordination[i]);
-        }
-        this.setState({
-            filteredResources: arrSorted
-        });
-    }
-
 
     getUser(){
 
@@ -559,24 +348,6 @@ export default class App extends React.Component {
     handleChanges(change, changesObject) {
         this.displaySearch();
         changesObject.cancel();
-    }
-
-    getSearchMenu() {
-        if (this.state.shouldShowSearchMenu) {
-            return (
-              <div>
-                <AddressBar submit={()=>this.addressSearchSubmit()}
-                            address={this.state.address}
-                            onChange={(address)=>this.setState({address})}/>
-                {this.state.searchBar}
-              </div>
-                )
-        }else if(!this.state.appbarState){
-          return (
-            <div>
-            </div>
-              )
-        }
     }
 
     // quick fix to remove header and drawer from the landing page.
@@ -614,44 +385,6 @@ export default class App extends React.Component {
                 </div>
             )
         }
-    }
-
-    addressSearchSubmit() {
-        console.log("address is: " + this.state.address);
-        var getCoords= new Promise((resolve, reject) =>{
-          geocodeByAddress(this.state.address, (err, latLng) => {
-                if (err) {
-                    console.log('error geocoding by address:', err)
-                    reject(err);
-                }else{
-                    console.log(latLng)
-                  this.setState({
-                      userLat: latLng.lat
-                  });
-                  this.setState({
-                      userLng: latLng.lng
-                  });
-                  resolve();
-                }
-              });
-        });
-        getCoords.then((result)=>{
-          this.filterNearMe(this.state.filteredResources);
-          }).catch((error)=>{
-            console.log("error getting geocode response");
-          });
-    }
-
-    //Update the rows of the results table on main page
-    redrawResources(resources) {
-        var results = [];
-        resources.forEach(function (res) {
-            results.push(res.doc);
-        });
-        this.setState({
-            filteredResources: results
-        });
-        this.filterNearMe();
     }
 
     //Register a new user to the database
@@ -746,30 +479,6 @@ export default class App extends React.Component {
       });;
     }
 
-    //user gets prompt to allow browser to access current position
-    requestCurrentPosition() {
-
-        var options = {
-            enableHighAccuracy: true,
-            timeout: 5000,
-            maximumAge: 0
-        }
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition((pos) => {
-                var crd = pos.coords;
-                const x = crd.latitude;
-                const y = crd.longitude;
-                this.setState({
-                    userLat: x
-                });
-                this.setState({
-                    userLng: y
-                });
-            }, this.error, options);
-        }
-
-    }
-
     // Since all state is stored in App.jsx, each clinicpage that is rendered
     // must update the current page feedback that's currently stored in the
     // state of App.jsx
@@ -851,21 +560,9 @@ export default class App extends React.Component {
         }
     }
 
-    setShouldShowSearchMenu(shouldShowSearchMenu) {
-        this.setState({shouldShowSearchMenu: shouldShowSearchMenu})
-    }
 
     setShouldShowHeaderAndDrawer(shouldShowHeaderAndDrawer) {
         this.setState({shouldShowHeaderAndDrawer: shouldShowHeaderAndDrawer})
-    }
-
-    componentDidMount() {
-        // may be the wrong place to call these. Might be better to call in
-        // component will mount
-        console.log("component did mount")
-        PouchDB.sync(db, remoteCouch).on('complete',() => this.displaySearch());
-        PouchDB.sync(db_pending, remoteCouchPending);
-        this.requestCurrentPosition();
     }
 
     render() {
@@ -878,8 +575,6 @@ export default class App extends React.Component {
           <div id='wrapper' style={styles.wrapper}>
 
           {this.getHeaderAndDrawer()}
-
-          {this.getSearchMenu()}
 
           <div ref='content' id='content'>
           <CSSTransitionGroup transitionName='slide'
@@ -914,7 +609,6 @@ export default class App extends React.Component {
                             displaySearch={(result) => this.displaySearch()}
                             addFeedback={(x, result) => this.addFeedback(x, result)}
                             getFeedbacks={()=>this.state.clinicpageFeedbacks}
-                            getFilteredResources={() => this.state.filteredResources}
                             vouchFor={(a,b,c)=>this.vouchFor(a,b,c)}
                             vouchAgainst={(a,b,c)=>this.vouchAgainst(a,b,c)}
                             addFlag={()=>this.addFlag(a,b)}/>
@@ -925,12 +619,11 @@ export default class App extends React.Component {
                                              displayResult={(result) => this.displayResult(result)}
                                              displaySearch={() => this.displaySearch()}
                                              filterResources={(string) => this.filterResources(string)}
-                                             getFilteredResources={() => this.state.filteredResources}
                                              getPageLoading={() => this.state.pageLoading}
                                              userLat={this.state.userLat}
                                              userLng={this.state.userLng}
                                              getSearchstring={()=>this.state.searchString}
-                                             setShouldShowSearchMenu={(shouldShowSearchMenu)=>this.setShouldShowSearchMenu(shouldShowSearchMenu)}/>
+                                         />
                       )} />
               <Route exact path="/LandingPage" render={(props) => (
                   <LandingPage {...props} submit={()=>this.addressSearchSubmit()}

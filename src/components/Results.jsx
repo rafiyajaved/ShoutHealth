@@ -117,7 +117,6 @@ export default class Results extends React.Component {
                 getPageLoading,
                 displayAddResource,
                 getSearchstring } = this.props;
-        var filteredResources = getFilteredResources();
         var pageLoading=getPageLoading();
         var searchstring=getSearchstring();
         console.log("search string is: " + searchstring)
@@ -133,7 +132,7 @@ export default class Results extends React.Component {
         <TableBody
             displayRowCheckbox={false}
             showRowHover={true}>
-        {this.formatFilteredResources(filteredResources, searchstring, pageLoading)} //Populate results based on the "pageLoading" state boolean that indicates whether or not DB is synced
+        {this.formatFilteredResources(this.props.filteredResources, searchstring, pageLoading)} //Populate results based on the "pageLoading" state boolean that indicates whether or not DB is synced
         </TableBody>
       </Table>
 
