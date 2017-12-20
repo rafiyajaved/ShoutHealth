@@ -128,7 +128,6 @@ export default class LandingPage extends React.Component {
                     style={style.appbar}>
               <div style={style.appbarTitle}>
                       <Link to="/"><img src={pathToLogo} height="60"/></Link>
-                      <p>ShoutHealth</p>
               </div>
               <div style={style.headermenu}>
                 <RaisedButton
@@ -147,7 +146,7 @@ export default class LandingPage extends React.Component {
                         <PlacesAutocomplete inputProps={inputProps}
                                             onSelect={(address, placeID)=>this.placesAutocompleteOnChange(address, placeID)} />
                     </div>
-                    <RaisedButton label ="Find Resources"
+                    <RaisedButton label ="Search"
                                   onTouchTap={()=>this.handleSearchClick()}
                                   style={style.button}
                                   containerElement={<Link to={"/home/?query=" + this.state.queryString} />}/>
