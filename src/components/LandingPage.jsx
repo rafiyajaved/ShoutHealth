@@ -54,7 +54,7 @@ const style = {
     titleText: {
         margin:50,
         color:'white',
-        fontSize:60,
+        fontSize:40,
         maxWidth:'60%'
     },
 
