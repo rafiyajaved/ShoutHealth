@@ -12,15 +12,15 @@ import IconButton from 'material-ui/IconButton';
 import AppBar from 'material-ui/AppBar';
 
 
-
-const pathToBackground = require('../img/background.jpg');
+const pathToAndroidBadge = require('../img/googlebadge.png');
+const pathToBackground = require('../img/background2.jpg');
 const pathToLogo = require('../img/transparent-logo.png');
 const pathToLogoSmall = require('../img/logo.png');
 
 const style = {
 
     appbar: {
-      backgroundColor:'white',
+      backgroundColor:'transparent',
       overflow:'hidden',
     },
     appbarTitle: {
@@ -35,12 +35,24 @@ const style = {
     headermenu: {
         margin:10
     },
-    wrapper: {
-        backgroundImage: 'url(' + pathToBackground + ')',
-        backgroundPosition: 'center',
-        backgroundAttachment:'fixed'
+    background:{
+      backgroundColor:'black',
+      height:'100%'
     },
-
+    wrapper: {
+        height:'600',
+        backgroundImage: 'url(' + pathToBackground + ')',
+        backgroundPosition: 'top',
+        backgroundAttachment:'fixed',
+        justifyContent: "center"
+    },
+    appstore: {
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: "center",
+      padding:30,
+      marginBottom:30,
+    },
     logo: {
         height: "auto",
         width: "auto",
@@ -53,18 +65,10 @@ const style = {
 
     titleText: {
         margin:50,
-        color:'white',
+        color:'black',
         fontSize:40,
         maxWidth:'60%'
     },
-
-    getAppText: {
-        margin:50,
-        color:'white',
-        fontSize:20,
-        maxWidth:'50%'
-    },
-
     addressBarWrapper: {
         marginLeft:50,
         display:"flex",
@@ -123,36 +127,48 @@ export default class LandingPage extends React.Component {
         }
 
         return (
-            <div id='wrapper' style={style.wrapper}>
-            <AppBar showMenuIconButton={false}
-                    style={style.appbar}>
-              <div style={style.appbarTitle}>
-                      <Link to="/"><img src={pathToLogo} height="60"/></Link>
-              </div>
-              <div style={style.headermenu}>
-                <RaisedButton
-                  label ="Sign up"
-                  style={{margin:5}}
-                  containerElement={<Link to="/Register" />}/>
-                <RaisedButton
-                  label ="Login"
-                  style={{margin:5}}
-                  containerElement={<Link to="/Login" />}/>
-              </div>
-              </AppBar>
-                <div style={style.titleText}> Over 400 Community Health and Social Resources </div>
-                <div style={style.addressBarWrapper}>
-                    <div style={style.places}>
-                        <PlacesAutocomplete inputProps={inputProps}
-                                            onSelect={(address, placeID)=>this.placesAutocompleteOnChange(address, placeID)} />
-                    </div>
-                    <RaisedButton label ="Search"
-                                  onTouchTap={()=>this.handleSearchClick()}
-                                  style={style.button}
-                                  containerElement={<Link to={"/home/?query=" + this.state.queryString} />}/>
-                </div>
-
+        <div style={style.background}>
+        <div id='wrapper' style={style.wrapper}>
+          <AppBar showMenuIconButton={false}
+                  style={style.appbar}>
+            <div style={style.appbarTitle}>
+                    <Link to="/"><img src={pathToLogo} height="60"/></Link>
             </div>
+            <div style={style.headermenu}>
+              <RaisedButton
+                label ="Sign up"
+                style={{margin:5}}
+                containerElement={<Link to="/Register" />}/>
+              <RaisedButton
+                label ="Login"
+                style={{margin:5}}
+                containerElement={<Link to="/Login" />}/>
+            </div>
+            </AppBar>
+            <div>
+                <div style={style.titleText}> Over 400 Community Health and Social Resources </div>
+            <div style={style.addressBarWrapper}>
+                <div style={style.places}>
+                    <PlacesAutocomplete inputProps={inputProps}
+                                        onSelect={(address, placeID)=>this.placesAutocompleteOnChange(address, placeID)} />
+                </div>
+                <RaisedButton label ="Search"
+                              onTouchTap={()=>this.handleSearchClick()}
+                              style={style.button}
+                              containerElement={<Link to={"/home/?query=" + this.state.queryString} />}/>
+            </div>
+            <div style={style.appstore}>
+            <div>
+            <a href="https://play.google.com/store/apps/details?id=com.shouthealth.reacthotloadingtemplate"><img src={pathToAndroidBadge} height="60"/></a>
+            </div>
+            <div>
+            <p>Coming soon to iOS</p>
+            </div>
+            </div>
+          </div>
+          </div>
+          </div>
+
         );
     }
 }
