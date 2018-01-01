@@ -55,6 +55,7 @@ export default class Map extends React.Component {
 
             {filteredResources.map((result, i) =>
                   <Place
+                          key={i}
                           index={i}
                           getClicked={()=>this.state.clicked}
                           onClickResult={(res)=>this.onClickResult(res)}

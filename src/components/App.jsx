@@ -943,7 +943,26 @@ export default class App extends React.Component {
                                              getSearchstring={()=>this.state.searchString}
                                              setShouldShowSearchMenu={(shouldShowSearchMenu)=>this.setShouldShowSearchMenu(shouldShowSearchMenu)}/>
                       )} />
+              <Route path='/referred' render={(props) => (
+                  <Main {...props} container={this.refs.content}
+                                             footer={this.refs.footer}
+                                             displayResult={(result) => this.displayResult(result)}
+                                             displaySearch={() => this.displaySearch()}
+                                             filterResources={(string) => this.filterResources(string)}
+                                             getFilteredResources={() => this.state.filteredResources}
+                                             getPageLoading={() => this.state.pageLoading}
+                                             userLat={this.state.userLat}
+                                             userLng={this.state.userLng}
+                                             getSearchstring={()=>this.state.searchString}
+                                             setShouldShowSearchMenu={(shouldShowSearchMenu)=>this.setShouldShowSearchMenu(shouldShowSearchMenu)}/>
+                      )} />
               <Route exact path="/" render={(props) => (
+                  <LandingPage {...props} submit={()=>this.addressSearchSubmit()}
+                                          address={this.state.address}
+                                          onChange={(address)=>this.setState({address})}
+                                          setShouldShowHeaderAndDrawer={(shouldShowHeaderAndDrawer)=>this.setShouldShowHeaderAndDrawer(shouldShowHeaderAndDrawer)} />
+                )} />
+              <Route render={(props) => (
                   <LandingPage {...props} submit={()=>this.addressSearchSubmit()}
                                           address={this.state.address}
                                           onChange={(address)=>this.setState({address})}

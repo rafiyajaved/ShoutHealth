@@ -17,15 +17,21 @@ import PlacesChildCare from 'material-ui/svg-icons/places/child-care';
 
 const styles = {
     wrapper:{
+        zIndex:'0',
         display:'flex',
         flexDirection:'row',
-        flexWrap:'wrap',
+        padding:8,
+        flexShrink: 0,
+        overflow:'auto',
     },
     secondaryButton: {
         color: '#F06292',
+        display:'flex',
         marginRight:10,
-        marginTop:10,
         border: '1px solid #BEBEBE',
+    },
+    label: {
+        fontSize:12
     },
     text: {
       paddingLeft:10,
@@ -46,6 +52,7 @@ export default class SecondaryOptions extends React.Component {
         <div style={styles.wrapper}>
           <FlatButton
                           style={styles.secondaryButton}
+ labelStyle={styles.label}
                 backgroundColor={index===7?"#E8E8E8":"#FFFFFF"} label=" Showing All Results "/>
         </div>
         )
@@ -55,20 +62,24 @@ export default class SecondaryOptions extends React.Component {
         <div style={styles.wrapper}>
             <FlatButton
                     style={styles.secondaryButton}
+                    labelStyle={styles.label}
                     onClick={() => this.onSelect(7)}
                     backgroundColor={index===7?"#E8E8E8":"#FFFFFF"}
                     label="Check-up" />
             <FlatButton
                     style={styles.secondaryButton}
+                    labelStyle={styles.label}
                     onClick={() => this.onSelect(8)}
                     backgroundColor={index===8?"#E8E8E8":"#FFFFFF"}
                     label="Emergency rooms"/>
             <FlatButton
                     style={styles.secondaryButton}
+                    labelStyle={styles.label}
                     onClick={() => this.onSelect(9)}
                     backgroundColor={index===9?"#E8E8E8":"#FFFFFF"} label="Chronic Disease Management"/>
             <FlatButton
                   style={styles.secondaryButton}
+                  labelStyle={styles.label}
                     onClick={() => this.onSelect(10)}
                     backgroundColor={index===10?"#E8E8E8":"#FFFFFF"} label="STD Testing"/>
         </div>);
@@ -78,18 +89,22 @@ export default class SecondaryOptions extends React.Component {
       <div style={styles.wrapper}>
           <FlatButton
                   style={styles.secondaryButton}
+                  labelStyle={styles.label}
                   onClick={() => this.onSelect(11)}
                   backgroundColor={index===11?"#E8E8E8":"#FFFFFF"} label="Pregnancy Test"/>
           <FlatButton
                   style={styles.secondaryButton}
+                  labelStyle={styles.label}
                   onClick={() => this.onSelect(12)}
                   backgroundColor={index===12?"#E8E8E8":"#FFFFFF"} label="Pap Smear"/>
           <FlatButton
                   style={styles.secondaryButton}
+                  labelStyle={styles.label}
                   onClick={() => this.onSelect(13)}
                   backgroundColor={index===13?"#E8E8E8":"#FFFFFF"} label="Mammogram"/>
           <FlatButton
                   style={styles.secondaryButton}
+                  labelStyle={styles.label}
                   onClick={() => this.onSelect(14)}
                   backgroundColor={index===14?"#E8E8E8":"#FFFFFF"} label="Birth Control"/>
       </div>);
@@ -98,14 +113,17 @@ export default class SecondaryOptions extends React.Component {
       <div style={styles.wrapper}>
           <FlatButton
                   style={styles.secondaryButton}
+                  labelStyle={styles.label}
                   onClick={() => this.onSelect(21)}
                   backgroundColor={index===21?"#E8E8E8":"#FFFFFF"} label="Immunization"/>
           <FlatButton
                   style={styles.secondaryButton}
+                  labelStyle={styles.label}
                   onClick={() => this.onSelect(22)}
                   backgroundColor={index===22?"#E8E8E8":"#FFFFFF"} label="Check-up"/>
           <FlatButton
                   style={styles.secondaryButton}
+                  labelStyle={styles.label}
                   onClick={() => this.onSelect(23)}
                   backgroundColor={index===23?"#E8E8E8":"#FFFFFF"} label="Emergency"/>
       </div>);
@@ -114,14 +132,17 @@ export default class SecondaryOptions extends React.Component {
       <div style={styles.wrapper}>
           <FlatButton
                   style={styles.secondaryButton}
+                  labelStyle={styles.label}
                   onClick={() => this.onSelect(31)}
                   backgroundColor={index===31?"#E8E8E8":"#FFFFFF"} label="Behavioral Health"/>
           <FlatButton
                   style={styles.secondaryButton}
+                  labelStyle={styles.label}
                   onClick={() => this.onSelect(32)}
                   backgroundColor={index===32?"#E8E8E8":"#FFFFFF"} label="Counseling"/>
           <FlatButton
                   style={styles.secondaryButton}
+                  labelStyle={styles.label}
                   onClick={() => this.onSelect(33)}
                   backgroundColor={index===33?"#E8E8E8":"#FFFFFF"} label="Psychiatric Emergency"/>
       </div>);
@@ -130,14 +151,17 @@ export default class SecondaryOptions extends React.Component {
       <div style={styles.wrapper}>
           <FlatButton
                   style={styles.secondaryButton}
+                  labelStyle={styles.label}
                   onClick={() => this.onSelect(41)}
                   backgroundColor={index===41?"#E8E8E8":"#FFFFFF"} label="Basic filling/extraction"/>
           <FlatButton
                   style={styles.secondaryButton}
+                  labelStyle={styles.label}
                   onClick={() => this.onSelect(42)}
                   backgroundColor={index===42?"#E8E8E8":"#FFFFFF"} label="Cleaning"/>
           <FlatButton
                   style={styles.secondaryButton}
+                  labelStyle={styles.label}
                   onClick={() => this.onSelect(43)}
                   backgroundColor={index===43?"#E8E8E8":"#FFFFFF"} label="Advanced dental"/>
       </div>);
@@ -146,10 +170,12 @@ export default class SecondaryOptions extends React.Component {
       <div style={styles.wrapper}>
           <FlatButton
                   style={styles.secondaryButton}
+                  labelStyle={styles.label}
                   onClick={() => this.onSelect(51)}
                   backgroundColor={index===51?"#E8E8E8":"#FFFFFF"} label="Vision testing"/>
           <FlatButton
                   style={styles.secondaryButton}
+                  labelStyle={styles.label}
                   onClick={() => this.onSelect(52)}
                   backgroundColor={index===52?"#E8E8E8":"#FFFFFF"} label="Retina"/>
       </div>);
@@ -158,14 +184,17 @@ export default class SecondaryOptions extends React.Component {
       <div style={styles.wrapper}>
           <FlatButton
                   style={styles.secondaryButton}
+                  labelStyle={styles.label}
                   onClick={() => this.onSelect(61)}
                   backgroundColor={index===61?"#E8E8E8":"#FFFFFF"} label="Affordable Housing"/>
           <FlatButton
                   style={styles.secondaryButton}
+                  labelStyle={styles.label}
                   onClick={() => this.onSelect(62)}
                   backgroundColor={index===62?"#E8E8E8":"#FFFFFF"} label="Domestic Violence Shelters"/>
           <FlatButton
                   style={styles.secondaryButton}
+                  labelStyle={styles.label}
                   onClick={() => this.onSelect(63)}
                   backgroundColor={index===63?"#E8E8E8":"#FFFFFF"} label="Youth Housing"/>
       </div>);
@@ -174,10 +203,12 @@ export default class SecondaryOptions extends React.Component {
       <div style={styles.wrapper}>
           <FlatButton
                   style={styles.secondaryButton}
+                  labelStyle={styles.label}
                   onClick={() => this.onSelect(62)}
                   backgroundColor={index===62?"#E8E8E8":"#FFFFFF"} label="Food Pantries"/>
           <FlatButton
                   style={styles.secondaryButton}
+                  labelStyle={styles.label}
                   onClick={() => this.onSelect(62)}
                   backgroundColor={index===62?"#E8E8E8":"#FFFFFF"} label="Utilities Assistance"/>
       </div>);
@@ -186,18 +217,22 @@ export default class SecondaryOptions extends React.Component {
       <div style={styles.wrapper}>
         <FlatButton
                 style={styles.secondaryButton}
+                labelStyle={styles.label}
                 onClick={() => this.onSelect(63)}
                 backgroundColor={index===63?"#E8E8E8":"#FFFFFF"} label="Employment Assistance"/>
         <FlatButton
                 style={styles.secondaryButton}
+                labelStyle={styles.label}
                 onClick={() => this.onSelect(64)}
                 backgroundColor={index===64?"#E8E8E8":"#FFFFFF"} label="Adult Education"/>
         <FlatButton
                 style={styles.secondaryButton}
+                labelStyle={styles.label}
                 onClick={() => this.onSelect(65)}
                 backgroundColor={index===65?"#E8E8E8":"#FFFFFF"} label="Clothing"/>
         <FlatButton
                 style={styles.secondaryButton}
+                labelStyle={styles.label}
                 onClick={() => this.onSelect(66)}
                 backgroundColor={index===66?"#E8E8E8":"#FFFFFF"} label="Identification"/>
       </div>);
@@ -214,7 +249,6 @@ export default class SecondaryOptions extends React.Component {
 
         return (
         <div style={styles.wrapper}>
-          <div style={styles.text}><h4>Filter by subcategory: </h4></div>
           {this.getOptions(index)}
         </div>
         );

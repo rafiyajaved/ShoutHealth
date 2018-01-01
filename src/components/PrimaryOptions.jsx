@@ -36,8 +36,8 @@ const styles = {
         display:'flex',
         flexDirection:'row',
         padding:8,
-        justifyContent: "left",
         overflow: 'auto',
+        flexShrink: 0,
         marginTop:15
     },
     filterButton: {
@@ -109,7 +109,7 @@ export default class PrimaryOptions extends React.Component {
                 onTouchTap={()=>onSelect(100)}
                 icon={<ActionHome />}
                 style={styles.raisedButton}/>
-                <h4>View All</h4>
+                View All
             </div>
             <div style={styles.button}>
               <FlatButton
@@ -118,7 +118,7 @@ export default class PrimaryOptions extends React.Component {
                 onTouchTap={()=>onSelect(0)}
                 icon={<Icon icon='Family' icon2='None'/>}
                 style={styles.raisedButton}/>
-                <h4>Adult Health</h4>
+                Adult
             </div>
             <div style={styles.button} backgroundColor={index===100?"#707070":"#000000"}>
               <FlatButton
@@ -127,7 +127,7 @@ export default class PrimaryOptions extends React.Component {
                 onTouchTap={()=>onSelect(1)}
                 icon={<Icon icon='Women' icon2='Women2'/>}
                 style={styles.raisedButton}/>
-                <h4>Women's Health</h4>
+                Women's Health
             </div>
             <div style={styles.button} backgroundColor={index===100?"#707070":"#000000"}>
               <FlatButton
@@ -136,7 +136,7 @@ export default class PrimaryOptions extends React.Component {
                 onTouchTap={()=>onSelect(2)}
                 icon={<PlacesChildCare />}
                 style={styles.raisedButton}/>
-                <h4>Children and Youth</h4>
+                Children and Youth
             </div>
             <div style={styles.button} backgroundColor={index===100?"#707070":"#000000"}>
               <FlatButton
@@ -145,7 +145,7 @@ export default class PrimaryOptions extends React.Component {
                 onTouchTap={()=>onSelect(9)}
                 icon={<MapsLocalHospital />}
                 style={styles.raisedButton}/>
-                <h4>Emergency</h4>
+                Emergency
             </div>
             <div style={styles.button} backgroundColor={index===100?"#707070":"#000000"}>
               <FlatButton
@@ -154,7 +154,7 @@ export default class PrimaryOptions extends React.Component {
                 onTouchTap={()=>onSelect(3)}
                 icon={<Icon icon='Mental' icon2='None'/>}
                 style={styles.raisedButton}/>
-                <h4>Behavioral Health</h4>
+                Behavioral Health
             </div>
             <div style={styles.button} backgroundColor={index===100?"#707070":"#000000"}>
               <FlatButton
@@ -163,7 +163,7 @@ export default class PrimaryOptions extends React.Component {
                 hoverColor='#707070'
                 icon={<Icon icon='Dental' icon2='None'/>}
                 style={styles.raisedButton}/>
-                <h4>Dental</h4>
+                Dental
             </div>
             <div style={styles.button} backgroundColor={index===100?"#707070":"#000000"}>
               <FlatButton
@@ -172,7 +172,7 @@ export default class PrimaryOptions extends React.Component {
                 onTouchTap={()=>onSelect(5)}
                 icon={<ActionVisibility />}
                 style={styles.raisedButton}/>
-                <h4>Vision</h4>
+                Vision
             </div>
             <div style={styles.button} backgroundColor={index===100?"#707070":"#000000"}>
               <FlatButton
@@ -181,7 +181,7 @@ export default class PrimaryOptions extends React.Component {
                 onTouchTap={()=>onSelect(6)}
                 icon={<Icon icon='Social' icon2='None'/>}
                 style={styles.raisedButton}/>
-                <h4>Housing</h4>
+                Housing
             </div>
             <div style={styles.button} backgroundColor={index===100?"#707070":"#000000"}>
               <FlatButton
@@ -190,7 +190,7 @@ export default class PrimaryOptions extends React.Component {
                 onTouchTap={()=>onSelect(7)}
                 icon={<ActionShoppingCart />}
                 style={styles.raisedButton}/>
-                <h4>Food and Utilities</h4>
+                Food and Utilities
             </div>
             <div style={styles.button} backgroundColor={index===100?"#707070":"#000000"}>
               <FlatButton
@@ -199,7 +199,7 @@ export default class PrimaryOptions extends React.Component {
                 onTouchTap={()=>onSelect(8)}
                 icon={<SocialSchool />}
                 style={styles.raisedButton}/>
-                <h4>Education, Employment, Identification</h4>
+                Adult Education
             </div>
         </div>
         </div>

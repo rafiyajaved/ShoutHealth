@@ -106,7 +106,7 @@ export default class Main extends React.Component {
 
         return (
           <div style={styles.wrapper}>
-            <div style={{width: resultWidth, height: offsetHeight, overflow: 'auto', paddingLeft:10, paddingRight:5}}>
+            <div style={{width: resultWidth, height: offsetHeight, overflow: 'auto'}}>
               <ResultsWithRouter height={offsetHeight}
                                  getFilteredResources={getFilteredResources}
                                  displayAddResource={displayAddResource}

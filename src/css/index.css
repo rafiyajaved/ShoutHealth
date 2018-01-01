@@ -8,10 +8,16 @@ html, body {
   height: 100vh;
   flex-direction: column;  /* learn more: http://philipwalton.github.io/solved-by-flexbox/demos/sticky-footer/ */
   background: #FFFFFF;
+  font-family: 'Roboto', sans-serif;
 }
 
 #content {
   flex:1;
+  font-family: 'Roboto', sans-serif;
+}
+
+.h4 {
+  font-family: 'Roboto', sans-serif;
 }
 
 #cliniccomponents{
