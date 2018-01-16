@@ -54,7 +54,7 @@ import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 
-const pathToLogoSmall = require('../img/logo.png');
+const pathToLogo = require('../../src/img/transparent-logo.png');
 
 import PouchDB from 'pouchdb';
 import PouchDBQuickSearch from 'pouchdb-quick-search';
@@ -599,7 +599,7 @@ export default class App extends React.Component {
                                 onLeftIconButtonTouchTap={() => this.appbarClick()}
                                 style={styles.appbar}>
                           <div style={styles.appbarTitle}>
-                              <Link to="/"><img src={pathToLogoSmall}/></Link>
+                              <Link to="/"><img src={pathToLogo} height="60"/></Link>
                           </div>
                           <div style={styles.headermenu}>
                             {this.getMenuOptions()}

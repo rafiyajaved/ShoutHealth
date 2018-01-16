@@ -73,7 +73,7 @@ export default class Place extends React.Component {
 
   }
 
-    returnMarker(clicked, keyThis, youAreHere){
+    returnMarker(clicked, keyThis){
 
       if(clicked){
       var resource=this.props.resource;
@@ -82,8 +82,6 @@ export default class Place extends React.Component {
                 <p>{this.props.address}</p>
                 <p>{this.props.resource.phone}</p>
               </div>
-      }else if(youAreHere){
-        return <div style={styleUserLocation}></div>
       }
       else{
         return <div style={style}></div>
@@ -91,7 +89,7 @@ export default class Place extends React.Component {
     }
     render() {
 
-      const {key, getClicked, onClickResult, resource, youAreHere}=this.props;
+      const {key, getClicked, onClickResult, resource}=this.props;
       const keyOn = getClicked();
       const keyThis=this.props.index;
       var clicked=false;
@@ -101,7 +99,7 @@ export default class Place extends React.Component {
 
         return (
             <div>
-            {this.returnMarker(clicked, keyThis, youAreHere)}
+            {this.returnMarker(clicked, keyThis)}
             </div>
         );
     }

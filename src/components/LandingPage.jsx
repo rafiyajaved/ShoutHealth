@@ -20,7 +20,7 @@ const pathToLogoSmall = require('../img/logo.png');
 const style = {
 
     appbar: {
-      backgroundColor:'transparent',
+      backgroundColor:'#B9D9E6',
       overflow:'hidden',
     },
     appbarTitle: {
@@ -32,15 +32,12 @@ const style = {
         marginLeft:10,
         fontSize:20
     },
-    headermenu: {
-        margin:10
-    },
     background:{
       backgroundColor:'black',
       height:'100%'
     },
     wrapper: {
-        height:'600',
+        height:'530',
         backgroundImage: 'url(' + pathToBackground + ')',
         backgroundPosition: 'top',
         backgroundAttachment:'fixed',
@@ -128,23 +125,23 @@ export default class LandingPage extends React.Component {
 
         return (
         <div style={style.background}>
+        <AppBar showMenuIconButton={false}
+                style={style.appbar}>
+          <div style={style.appbarTitle}>
+                  <Link to="/"><img src={pathToLogo} height="60"/></Link>
+          </div>
+          <div style={style.headermenu}>
+            <RaisedButton
+              label ="Sign up"
+              style={{margin:5}}
+              containerElement={<Link to="/Register" />}/>
+            <RaisedButton
+              label ="Login"
+              style={{margin:5}}
+              containerElement={<Link to="/Login" />}/>
+          </div>
+          </AppBar>
         <div id='wrapper' style={style.wrapper}>
-          <AppBar showMenuIconButton={false}
-                  style={style.appbar}>
-            <div style={style.appbarTitle}>
-                    <Link to="/"><img src={pathToLogo} height="60"/></Link>
-            </div>
-            <div style={style.headermenu}>
-              <RaisedButton
-                label ="Sign up"
-                style={{margin:5}}
-                containerElement={<Link to="/Register" />}/>
-              <RaisedButton
-                label ="Login"
-                style={{margin:5}}
-                containerElement={<Link to="/Login" />}/>
-            </div>
-            </AppBar>
             <div>
                 <div style={style.titleText}> Over 400 Community Health and Social Resources </div>
             <div style={style.addressBarWrapper}>

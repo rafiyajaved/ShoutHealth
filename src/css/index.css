@@ -12,8 +12,8 @@ html, body {
 }
 
 #content {
-  flex:1;
   font-family: 'Roboto', sans-serif;
+  height:100%;
 }
 
 .h4 {

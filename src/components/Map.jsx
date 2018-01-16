@@ -5,6 +5,7 @@ import React from 'react';
 import GoogleMap from 'google-map-react';
 
 import Place from './Place.jsx';
+import UserLocation from './UserLocation.jsx';
 
 export default class Map extends React.Component {
 
@@ -68,14 +69,9 @@ export default class Map extends React.Component {
                           address={result.civic_address}/>
                           )}
 
-            <Place getClicked={()=>this.state.clicked}
-                   onClickResult={()=>console.log("do nothing")}
-                  resource={" "}
+            <UserLocation
                   lat={userLat}
-                  lng={userLng}
-                  youAreHere={true}
-                  key={-1}
-                  placename={"current location"} />
+                  lng={userLng}/>
 
         </GoogleMap>
       </div>

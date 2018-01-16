@@ -17,8 +17,6 @@ const styles={
   wrapper:{
     display:'flex',
     flexDirection:'row',
-    position:'absolute',
-    overflow: 'hidden',
   },
   results:{
     display:'flex',
