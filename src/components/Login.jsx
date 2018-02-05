@@ -19,6 +19,7 @@ import FontIcon from 'material-ui/FontIcon';
 import ContentAddCircle from 'material-ui/svg-icons/content/add-circle';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import FlatButton from 'material-ui/FlatButton';
+import {Switch, Route, Link, withRouter, BrowserRouter} from 'react-router-dom';
 
 
 import {
@@ -237,12 +238,12 @@ export default class Login extends React.Component {
 
                               <Dialog
                                 title="Login Successful"
-                                  actions={<FlatButton
+                                  actions={<Link to="/home"><FlatButton
                                   label="Close"
                                   primary={true}
                                   onTouchTap={() => { this.setState({loginSuccess: false});
                                                       displaySearch();
-                                                      }}/>}
+                                                      }}/></Link>}
                                   modal={false}
                                   open={this.state.loginSuccess}
                                   onRequestClose={()=>{this.setState({loginSuccess: false})}}>

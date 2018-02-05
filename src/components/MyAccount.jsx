@@ -76,31 +76,12 @@ export default class MyAccount extends React.Component {
 
     }
 
-    searchSizer() {
-        var offsetHeight = document.getElementById('content').clientHeight
-        var offsetWidth = document.getElementById('content').clientWidth
-        this.setState({ offsetHeight, offsetWidth});
-    }
-
-    componentDidMount() {
-        this.searchSizer();
-        window.addEventListener('resize', () => this.searchSizer(), false);
-    }
-
-    componentWillUnmount() {
-        window.removeEventListener('resize', this.searchSizer, false);
-    }
 
     render() {
 
         const { getLoggedIn, getUserinfo} = this.props;
-        const { offsetWidth, offsetHeight} = this.state;
 
         var userinfo=getUserinfo();
-
-        if (offsetHeight === undefined) {
-            return null;
-        }
 
 
         return (

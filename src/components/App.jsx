@@ -12,7 +12,6 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 /*Material-UI components*/
-import AppBar from 'material-ui/AppBar';
 import Paper from 'material-ui/Paper';
 import FlatButton from 'material-ui/FlatButton';
 import IconButton from 'material-ui/IconButton';
@@ -44,17 +43,14 @@ import About from './About.jsx';
 import Blog from './Blog.jsx';
 import Help from './Help.jsx';
 import LandingPage from './LandingPage.jsx';
+import AppBarCustom from './AppBarCustom.jsx';
+
 
 import {
     geocodeByAddress,
     geocodeByPlaceId
 } from 'react-places-autocomplete'
 
-import IconMenu from 'material-ui/IconMenu';
-import MenuItem from 'material-ui/MenuItem';
-import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
-
-const pathToLogo = require('../../src/img/transparent-logo.png');
 
 import PouchDB from 'pouchdb';
 import PouchDBQuickSearch from 'pouchdb-quick-search';
@@ -78,18 +74,6 @@ PouchDB.sync(feedback, remoteFeedback);
 
 const styles = {
 
-    appbar: {
-      backgroundColor:'transparent',
-      overflow:'hidden',
-    },
-    appbarTitle: {
-        display: 'flex',
-        flexDirection: 'row',
-        position: 'absolute',
-        color: 'black',
-        marginLeft:30,
-        fontSize:20
-    },
     row: {
         display: 'flex',
         flexDirection: 'row'
@@ -98,14 +82,6 @@ const styles = {
         display: 'flex',
         flexDirection: 'column',
         width: '100%'
-    },
-    headermenu: {
-        position: 'absolute',
-        right:5,
-        paddingTop:7,
-        display: 'flex',
-        flexDirection: 'row',
-        fontColor: '#FFFFFF'
     },
     headerlinks: {
         color: '#FFFFFF'
@@ -120,20 +96,14 @@ export default class App extends React.Component {
 
     constructor(props) {
         super(props);
-        console.log("app props are: ", props)
-        // this component's state acts as the overall store for now
+
         this.state = {
             allResources: [],
             address: "Atlanta, GA",
             filteredResources: [],
             showMenu: false, //toggles left-hand menu
             searchString: '',
-            appbarState: false,
             selectedIndex: 0,
-            appbarTitle: 'ShoutHealth',
-            appbarIcon: <NavigationMenu />,
-            searchBar: "",
-            searchBar2: "",
             pageLoading: 'true', //true if page has not loaded yet
             userLat: '33.7490',
             userLng: '-84.3880',
@@ -142,8 +112,6 @@ export default class App extends React.Component {
             loggedin: false,
             pendingData: [],
             userinfo:"",
-            shouldShowSearchMenu: false,
-            shouldShowHeaderAndDrawer: true
         };
     }
 
@@ -265,17 +233,6 @@ export default class App extends React.Component {
 
         }
 
-    // This function is called when the left-hand icon in the AppBar is clicked.
-    // the action depends on whether the user is currently on the main/landing
-    // page or a clinic page result
-    appbarClick() {
-        if (this.state.shouldShowSearchMenu) {
-            this.setState({
-                showMenu: !this.state.showMenu
-            });
-        }
-    }
-
     changeDoc(res) {
       this.updateDoc(res.doc);
       db_pending.remove(res.doc);
@@ -331,25 +288,6 @@ export default class App extends React.Component {
                 });
                 this.redrawResources(doc.rows);
             }
-        });
-        this.setState({
-            appbarTitle: 'ShoutHealth'
-        });
-        this.setState({
-            appbarState: false
-        });
-        this.setState({
-            appbarIcon: <NavigationMenu />
-        });
-        this.setState({
-            searchBar: <div>
-                        <PrimaryOptions container={this.refs.content}
-                                      getselectedIndex={()=>this.state.selectedIndex}
-                                      onSelect={(index) => this.selectOption(index)}/>
-                        <SecondaryOptions container={this.refs.content}
-                                      getselectedIndex={()=>this.state.selectedIndex}
-                                      onSelect={(index) => this.selectOption(index)}/>
-                        </div>
         });
 
     }
@@ -439,54 +377,46 @@ export default class App extends React.Component {
 
     //This function allows user to filter resources based on the selected icon in the footer
     selectOption(index) {
-        //first, go back to the main screen
+    var indexMap=    {
+                        0: 'Adults',
+                        7: 'check-up',
+                        8: 'chronic disease',
+                        9: 'STD testing',
+                        10: 'Women',
+                        11: 'pregnancy',
+                        12: 'pap smear',
+                        13: 'mammogram',
+                        14: 'birth control',
+                        20: 'Children',
+                        21: 'immunization',
+                        22: 'pediatric check-up',
+                        30: 'mental health',
+                        40: 'dental',
+                        50: 'vision',
+                        51: 'Vision testing',
+                        52: 'retina',
+                        60: 'housing',
+                        61: 'affordable housing',
+                        62: 'domestic violence shelter',
+                        63: 'youth housing',
+                        70: 'food',
+                        71: 'food pantries',
+                        72: 'utilities',
+                        80: 'adult education',
+                        90: 'emergency'
+                    }
         this.setState({
             selectedIndex: index
         });
         if (index === 100) {
             this.filterResources('', "all");
-        } else if (index === 0) {
-            this.filterResources('Adults', "population");
-        } else if (index === 1) {
-            this.filterResources('Women', "population");
-        } else if (index === 2) {
-            this.filterResources('Children', "population");
-        } else if (index === 3) {
-            this.filterResources('mental health', "services");
-        } else if (index === 4) {
-            this.filterResources('dental', "services");
-        } else if (index === 5) {
-            this.filterResources('vision', "services");
-        } else if (index === 6) {
+        } else if ([0,10,20].includes(index)) {
+            this.filterResources(indexMap[index], "population");
+        } else if (index === 60) {
             this.filterResources('housing', "any");
+        } else {
+            this.filterResources(indexMap[index], "services");
         }
-
-         else if (index === 7) {
-            this.filterResources('check-up', "services");
-        }  else if (index === 8) {
-            this.filterResources('emergency', "any");
-        }  else if (index === 9) {
-            this.filterResources('chronic disease', "services");
-        }  else if (index === 9) {
-            this.filterResources('STD testing', "services");
-        }
-
-         else if (index ===11) {
-            this.filterResources('pregnancy', "services");
-        } else if (index ===11) {
-           this.filterResources('pap smear', "services");
-       } else if (index ===11) {
-          this.filterResources('mammogram', "services");
-      } else if (index ===11) {
-         this.filterResources('birth control', "services");
-     }
-
-     else if (index ===21) {
-        this.filterResources('immunization', "services");
-     }else if (index ===22) {
-        this.filterResources('pediatric check-up', "services");
-     }
-
     }
 
     //This function sorts resources based on the distance
@@ -566,7 +496,12 @@ export default class App extends React.Component {
                 <AddressBar submit={()=>this.addressSearchSubmit()}
                             address={this.state.address}
                             onChange={(address)=>this.setState({address})}/>
-                {this.state.searchBar}
+                <PrimaryOptions container={this.refs.content}
+                              getselectedIndex={()=>this.state.selectedIndex}
+                              onSelect={(index) => this.selectOption(index)}/>
+                <SecondaryOptions container={this.refs.content}
+                              getselectedIndex={()=>this.state.selectedIndex}
+                              onSelect={(index) => this.selectOption(index)}/>
               </div>
                 )
         }else {
@@ -577,40 +512,14 @@ export default class App extends React.Component {
         }
     }
 
-    // quick fix to remove header and drawer from the landing page.
-    // definitely not the best way to do this though
-    getHeaderAndDrawer() {
-        if (this.state.shouldShowHeaderAndDrawer) {
-            return (
-                <div>
-                    <div>
-                       <Drawer
-                       open={this.state.showMenu}
-                       docked={false}
-                       onRequestChange={(showMenu) => this.setState({showMenu})}>
-                         <LeftMenu addResource={(res)=>this.addResource(res)}
-                                   displayApproveDocs={()=>this.displayApproveDocs()}
-                                   getUserinfo={()=>this.state.userinfo}/>
-                      </Drawer>
-                   </div>
 
-                    <div id='header'>
-                        <AppBar iconElementLeft={this.state.appbarIcon}
-                                onLeftIconButtonTouchTap={() => this.appbarClick()}
-                                style={styles.appbar}>
-                          <div style={styles.appbarTitle}>
-                              <Link to="/"><img src={pathToLogo} height="60"/></Link>
-                          </div>
-                          <div style={styles.headermenu}>
-                            {this.getMenuOptions()}
-                          </div>
-                    </AppBar>
-
-                    </div>
-                </div>
+getAppBar() {
+        return (
+          <div>
+              <AppBarCustom loggedin={this.state.loggedin}/>
+          </div>
             )
-        }
-    }
+}
 
     addressSearchSubmit() {
         console.log("address is: " + this.state.address);
@@ -683,45 +592,6 @@ export default class App extends React.Component {
           this.setState({loggedin:false});
           return false;
           });;
-    }
-
-    getMenuOptions(){
-        let loginButton = null;
-        const isLoggedIn = this.state.loggedin;
-        if (isLoggedIn) {
-            return
-            <IconMenu
-                  iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
-                  anchorOrigin={{horizontal: 'right', vertical: 'top'}}
-                  targetOrigin={{horizontal: 'right', vertical: 'top'}}
-                >
-              <MenuItem primaryText="About"
-                        containerElement={<Link to="/About" />} />
-              <MenuItem primaryText="Blog"
-                        containerElement={<Link to="/Blog" />}/>
-              <MenuItem primaryText ={"My Account ("+this.state.userinfo.name+")"} />
-              <MenuItem primaryText ="Help"
-                        containerElement={<Link to="/Help" />} />
-              <MenuItem primaryText="Logout"/>
-            </IconMenu>
-        } else {
-            return <IconMenu
-                  iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
-                  anchorOrigin={{horizontal: 'right', vertical: 'top'}}
-                  targetOrigin={{horizontal: 'right', vertical: 'top'}}
-                >
-              <MenuItem primaryText="About"
-                        containerElement={<Link to="/About" />} />
-              <MenuItem primaryText="Blog"
-                        containerElement={<Link to="/Blog" />}/>
-              <MenuItem primaryText ="Login"
-                        containerElement={<Link to="/Login" />} />
-              <MenuItem primaryText ="Register"
-                        containerElement={<Link to="/Register" />} />
-              <MenuItem primaryText ="Help"
-                        containerElement={<Link to="/Help" />} />
-            </IconMenu>
-        }
     }
 
 
@@ -857,8 +727,8 @@ export default class App extends React.Component {
         this.setState({shouldShowSearchMenu: shouldShowSearchMenu})
     }
 
-    setShouldShowHeaderAndDrawer(shouldShowHeaderAndDrawer) {
-        this.setState({shouldShowHeaderAndDrawer: shouldShowHeaderAndDrawer})
+    setShouldShowHeader(shouldShowHeader) {
+        this.setState({shouldShowHeader: shouldShowHeader})
     }
 
     componentDidMount() {
@@ -879,7 +749,7 @@ export default class App extends React.Component {
             <MuiThemeProvider muiTheme={getMuiTheme()}>
           <div id='wrapper' style={styles.wrapper}>
 
-          {this.getHeaderAndDrawer()}
+          {this.getAppBar()}
 
           {this.getSearchMenu()}
 
@@ -893,6 +763,15 @@ export default class App extends React.Component {
               )} />
               <Route exact path="/Help" render={(props) => (
                 <Help {...props}/>
+              )} />
+              <Route exact path="/Logout" render={(props) => (
+                <Logout {...props} container={this.refs.content}
+                                        handleLogout={()=>this.handleLogout()}/>
+              )} />
+              <Route exact path="/MyAccount" render={(props) => (
+                <MyAccount {...props} container={this.refs.content}
+                                        getLoggedIn={()=>this.state.loggedin}
+                                        getUserinfo={()=>this.state.userinfo}/>
               )} />
               <Route exact path="/Blog" render={(props) => (
                 <Blog {...props} container={this.refs.content}/>
@@ -959,14 +838,12 @@ export default class App extends React.Component {
               <Route exact path="/" render={(props) => (
                   <LandingPage {...props} submit={()=>this.addressSearchSubmit()}
                                           address={this.state.address}
-                                          onChange={(address)=>this.setState({address})}
-                                          setShouldShowHeaderAndDrawer={(shouldShowHeaderAndDrawer)=>this.setShouldShowHeaderAndDrawer(shouldShowHeaderAndDrawer)} />
+                                          onChange={(address)=>this.setState({address})}/>
                 )} />
               <Route render={(props) => (
                   <LandingPage {...props} submit={()=>this.addressSearchSubmit()}
                                           address={this.state.address}
-                                          onChange={(address)=>this.setState({address})}
-                                          setShouldShowHeaderAndDrawer={(shouldShowHeaderAndDrawer)=>this.setShouldShowHeaderAndDrawer(shouldShowHeaderAndDrawer)} />
+                                          onChange={(address)=>this.setState({address})}/>
                 )} />
               )} />
 

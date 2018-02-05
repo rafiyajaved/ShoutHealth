@@ -64,7 +64,8 @@ const style = {
         margin:50,
         color:'black',
         fontSize:40,
-        maxWidth:'60%'
+        maxWidth:'60%',
+        textShadow: '2px 2px #d3d3d3',
     },
     addressBarWrapper: {
         marginLeft:50,
@@ -92,16 +93,12 @@ export default class LandingPage extends React.Component {
 
     constructor(props) {
         super(props);
-        props.setShouldShowHeaderAndDrawer(false);
         this.state = {
             address: 'Atlanta, GA',
             queryString: encodeURIComponent('Atlanta, GA')
         }
     }
 
-    componentWillUnmount() {
-        this.props.setShouldShowHeaderAndDrawer(true);
-    }
 
     placesAutocompleteOnChange(newAddress, placeID) {
         this.setState({address: newAddress});
@@ -116,7 +113,7 @@ export default class LandingPage extends React.Component {
 
     render() {
 
-        const { submit, address, onChange, setShouldShowHeaderAndDrawer }= this.props;
+        const { submit, address, onChange}= this.props;
 
         const inputProps = {
           value: this.state.address,
@@ -125,25 +122,9 @@ export default class LandingPage extends React.Component {
 
         return (
         <div style={style.background}>
-        <AppBar showMenuIconButton={false}
-                style={style.appbar}>
-          <div style={style.appbarTitle}>
-                  <Link to="/"><img src={pathToLogo} height="60"/></Link>
-          </div>
-          <div style={style.headermenu}>
-            <RaisedButton
-              label ="Sign up"
-              style={{margin:5}}
-              containerElement={<Link to="/Register" />}/>
-            <RaisedButton
-              label ="Login"
-              style={{margin:5}}
-              containerElement={<Link to="/Login" />}/>
-          </div>
-          </AppBar>
         <div id='wrapper' style={style.wrapper}>
             <div>
-                <div style={style.titleText}> Over 400 Community Health and Social Resources </div>
+                <div style={style.titleText}> Data-Driven Navigation of Community Health and Social Resources </div>
             <div style={style.addressBarWrapper}>
                 <div style={style.places}>
                     <PlacesAutocomplete inputProps={inputProps}

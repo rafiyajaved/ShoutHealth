@@ -46,6 +46,17 @@ export default class SecondaryOptions extends React.Component {
     }
 
     getOptions(index){
+    var adultIndices=[0, 7, 8, 9];
+    var womensIndices=[10, 11, 12, 13, 14];
+    var childrenIndices=[20, 21, 22, 23];
+    var emergencyIndices=[90];
+    var mentalIndices=[30, 31, 32, 33];
+    var dentalIndices=[40, 41, 42, 43];
+    var visionIndices=[50, 51, 52];
+    var housingIndices=[60, 61, 62, 63];
+    var foodIndices=[70, 71, 72];
+    var utilityIndices=[80, 81, 82];
+    var educationIndices=[110, 111];
 
     if(index==100){
         return(
@@ -57,7 +68,7 @@ export default class SecondaryOptions extends React.Component {
         </div>
         )
     }
-    else if(index==0||(index<=10&&index>6)){
+    else if(adultIndices.includes(index)){
         return(
         <div style={styles.wrapper}>
             <FlatButton
@@ -84,7 +95,7 @@ export default class SecondaryOptions extends React.Component {
                     backgroundColor={index===10?"#E8E8E8":"#FFFFFF"} label="STD Testing"/>
         </div>);
     }
-    else if(index==1||(index<20&&index>10)){
+    else if(womensIndices.includes(index)){
       return(
       <div style={styles.wrapper}>
           <FlatButton
@@ -108,7 +119,7 @@ export default class SecondaryOptions extends React.Component {
                   onClick={() => this.onSelect(14)}
                   backgroundColor={index===14?"#E8E8E8":"#FFFFFF"} label="Birth Control"/>
       </div>);
-    }else if(index==2||(index<30&&index>20)){
+    }else if(childrenIndices.includes(index)){
       return(
       <div style={styles.wrapper}>
           <FlatButton
@@ -127,7 +138,7 @@ export default class SecondaryOptions extends React.Component {
                   onClick={() => this.onSelect(23)}
                   backgroundColor={index===23?"#E8E8E8":"#FFFFFF"} label="Emergency"/>
       </div>);
-    }else if(index==3||(index<40&&index>30)){
+    }else if(mentalIndices.includes(index)){
       return(
       <div style={styles.wrapper}>
           <FlatButton
@@ -146,7 +157,7 @@ export default class SecondaryOptions extends React.Component {
                   onClick={() => this.onSelect(33)}
                   backgroundColor={index===33?"#E8E8E8":"#FFFFFF"} label="Psychiatric Emergency"/>
       </div>);
-    }else if(index==4||(index<50&&index>40)){
+    }else if(dentalIndices.includes(index)){
       return(
       <div style={styles.wrapper}>
           <FlatButton
@@ -165,7 +176,7 @@ export default class SecondaryOptions extends React.Component {
                   onClick={() => this.onSelect(43)}
                   backgroundColor={index===43?"#E8E8E8":"#FFFFFF"} label="Advanced dental"/>
       </div>);
-    }else if(index==5||(index<60&&index>50)){
+    }else if(visionIndices.includes(index)){
       return(
       <div style={styles.wrapper}>
           <FlatButton
@@ -179,7 +190,7 @@ export default class SecondaryOptions extends React.Component {
                   onClick={() => this.onSelect(52)}
                   backgroundColor={index===52?"#E8E8E8":"#FFFFFF"} label="Retina"/>
       </div>);
-    }else if(index==6||(index<70&&index>60)){
+    }else if(housingIndices.includes(index)){
       return(
       <div style={styles.wrapper}>
           <FlatButton
@@ -198,43 +209,29 @@ export default class SecondaryOptions extends React.Component {
                   onClick={() => this.onSelect(63)}
                   backgroundColor={index===63?"#E8E8E8":"#FFFFFF"} label="Youth Housing"/>
       </div>);
-    }else if(index==7||(index>70&&index<80)){
+    }else if(foodIndices.includes(index)){
       return(
       <div style={styles.wrapper}>
           <FlatButton
                   style={styles.secondaryButton}
                   labelStyle={styles.label}
-                  onClick={() => this.onSelect(62)}
+                  onClick={() => this.onSelect(71)}
                   backgroundColor={index===62?"#E8E8E8":"#FFFFFF"} label="Food Pantries"/>
           <FlatButton
                   style={styles.secondaryButton}
                   labelStyle={styles.label}
-                  onClick={() => this.onSelect(62)}
+                  onClick={() => this.onSelect(72)}
                   backgroundColor={index===62?"#E8E8E8":"#FFFFFF"} label="Utilities Assistance"/>
       </div>);
-    }else if(index==8||(index>80&&index<90)){
+    }
+    else if(educationIndices.includes(index)){
       return(
       <div style={styles.wrapper}>
         <FlatButton
                 style={styles.secondaryButton}
                 labelStyle={styles.label}
-                onClick={() => this.onSelect(63)}
+                onClick={() => this.onSelect(81)}
                 backgroundColor={index===63?"#E8E8E8":"#FFFFFF"} label="Employment Assistance"/>
-        <FlatButton
-                style={styles.secondaryButton}
-                labelStyle={styles.label}
-                onClick={() => this.onSelect(64)}
-                backgroundColor={index===64?"#E8E8E8":"#FFFFFF"} label="Adult Education"/>
-        <FlatButton
-                style={styles.secondaryButton}
-                labelStyle={styles.label}
-                onClick={() => this.onSelect(65)}
-                backgroundColor={index===65?"#E8E8E8":"#FFFFFF"} label="Clothing"/>
-        <FlatButton
-                style={styles.secondaryButton}
-                labelStyle={styles.label}
-                onClick={() => this.onSelect(66)}
-                backgroundColor={index===66?"#E8E8E8":"#FFFFFF"} label="Identification"/>
       </div>);
     }
     }

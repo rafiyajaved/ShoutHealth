@@ -122,44 +122,44 @@ export default class PrimaryOptions extends React.Component {
             </div>
             <div style={styles.button} backgroundColor={index===100?"#707070":"#000000"}>
               <FlatButton
-                backgroundColor={index===1?"#707070":"#000000"}
+                backgroundColor={index===10?"#707070":"#000000"}
                 hoverColor='#707070'
-                onTouchTap={()=>onSelect(1)}
+                onTouchTap={()=>onSelect(10)}
                 icon={<Icon icon='Women' icon2='Women2'/>}
                 style={styles.raisedButton}/>
                 Women's Health
             </div>
             <div style={styles.button} backgroundColor={index===100?"#707070":"#000000"}>
               <FlatButton
-                backgroundColor={index===2?"#707070":"#000000"}
+                backgroundColor={index===20?"#707070":"#000000"}
                 hoverColor='#707070'
-                onTouchTap={()=>onSelect(2)}
+                onTouchTap={()=>onSelect(20)}
                 icon={<PlacesChildCare />}
                 style={styles.raisedButton}/>
                 Children and Youth
             </div>
             <div style={styles.button} backgroundColor={index===100?"#707070":"#000000"}>
               <FlatButton
-                backgroundColor={index===9?"#707070":"#000000"}
+                backgroundColor={index===90?"#707070":"#000000"}
                 hoverColor='#707070'
-                onTouchTap={()=>onSelect(9)}
+                onTouchTap={()=>onSelect(90)}
                 icon={<MapsLocalHospital />}
                 style={styles.raisedButton}/>
                 Emergency
             </div>
             <div style={styles.button} backgroundColor={index===100?"#707070":"#000000"}>
               <FlatButton
-                backgroundColor={index===3?"#707070":"#000000"}
+                backgroundColor={index===30?"#707070":"#000000"}
                 hoverColor='#707070'
-                onTouchTap={()=>onSelect(3)}
+                onTouchTap={()=>onSelect(30)}
                 icon={<Icon icon='Mental' icon2='None'/>}
                 style={styles.raisedButton}/>
-                Behavioral Health
+                Mental Health
             </div>
             <div style={styles.button} backgroundColor={index===100?"#707070":"#000000"}>
               <FlatButton
-                backgroundColor={index===4?"#707070":"#000000"}
-                onTouchTap={()=>onSelect(4)}
+                backgroundColor={index===40?"#707070":"#000000"}
+                onTouchTap={()=>onSelect(40)}
                 hoverColor='#707070'
                 icon={<Icon icon='Dental' icon2='None'/>}
                 style={styles.raisedButton}/>
@@ -167,36 +167,36 @@ export default class PrimaryOptions extends React.Component {
             </div>
             <div style={styles.button} backgroundColor={index===100?"#707070":"#000000"}>
               <FlatButton
-                backgroundColor={index===5?"#707070":"#000000"}
+                backgroundColor={index===50?"#707070":"#000000"}
                 hoverColor='#707070'
-                onTouchTap={()=>onSelect(5)}
+                onTouchTap={()=>onSelect(50)}
                 icon={<ActionVisibility />}
                 style={styles.raisedButton}/>
                 Vision
             </div>
             <div style={styles.button} backgroundColor={index===100?"#707070":"#000000"}>
               <FlatButton
-                backgroundColor={index===6?"#707070":"#000000"}
+                backgroundColor={index===60?"#707070":"#000000"}
                 hoverColor='#707070'
-                onTouchTap={()=>onSelect(6)}
+                onTouchTap={()=>onSelect(60)}
                 icon={<Icon icon='Social' icon2='None'/>}
                 style={styles.raisedButton}/>
                 Housing
             </div>
             <div style={styles.button} backgroundColor={index===100?"#707070":"#000000"}>
               <FlatButton
-                backgroundColor={index===7?"#707070":"#000000"}
+                backgroundColor={index===70?"#707070":"#000000"}
                 hoverColor='#707070'
-                onTouchTap={()=>onSelect(7)}
+                onTouchTap={()=>onSelect(70)}
                 icon={<ActionShoppingCart />}
                 style={styles.raisedButton}/>
                 Food and Utilities
             </div>
             <div style={styles.button} backgroundColor={index===100?"#707070":"#000000"}>
               <FlatButton
-                backgroundColor={index===8?"#707070":"#000000"}
+                backgroundColor={index===80?"#707070":"#000000"}
                 hoverColor='#707070'
-                onTouchTap={()=>onSelect(8)}
+                onTouchTap={()=>onSelect(80)}
                 icon={<SocialSchool />}
                 style={styles.raisedButton}/>
                 Adult Education
