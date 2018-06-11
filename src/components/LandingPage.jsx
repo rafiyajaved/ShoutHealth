@@ -87,29 +87,21 @@ const style = {
 
 }
 
-var queryString = encodeURIComponent('Atlanta, GA');
-
 export default class LandingPage extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
             address: 'Atlanta, GA',
-            queryString: encodeURIComponent('Atlanta, GA')
         }
     }
 
 
     placesAutocompleteOnChange(newAddress, placeID) {
         this.setState({address: newAddress});
-        this.state.queryString = encodeURIComponent(newAddress);
-        console.log("queryString is: " + this.state.queryString + " and placeID is: " + placeID);
+        this.props.onChange(newAddress);
     }
 
-    handleSearchClick() {
-        console.log("address is: "+ this.state.address)
-        this.state.queryString = encodeURIComponent(this.state.address);
-    }
 
     render() {
 
@@ -131,9 +123,9 @@ export default class LandingPage extends React.Component {
                                         onSelect={(address, placeID)=>this.placesAutocompleteOnChange(address, placeID)} />
                 </div>
                 <RaisedButton label ="Search"
-                              onTouchTap={()=>this.handleSearchClick()}
+                              onTouchTap={()=>submit()}
                               style={style.button}
-                              containerElement={<Link to={"/home/?query=" + this.state.queryString} />}/>
+                              containerElement={<Link to={"/home"} />}/>
             </div>
             <div style={style.appstore}>
             <div>

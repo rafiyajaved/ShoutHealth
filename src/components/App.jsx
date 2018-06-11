@@ -522,7 +522,7 @@ getAppBar() {
 }
 
     addressSearchSubmit() {
-        console.log("address is: " + this.state.address);
+        console.log("Submitted address is: " + this.state.address);
         var getCoords= new Promise((resolve, reject) =>{
           geocodeByAddress(this.state.address, (err, latLng) => {
                 if (err) {
