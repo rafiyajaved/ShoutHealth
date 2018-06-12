@@ -125,7 +125,7 @@ export default class Results extends React.Component {
 
         return (
         <div>
-            <h2>Results</h2>
+            <center><h2>Results</h2></center>
       <Table
         selectable={false}
         fixedHeader={true}

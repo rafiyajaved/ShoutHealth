@@ -124,8 +124,10 @@ export default class Main extends React.Component {
                    userLng={userLng}
                    center={[userLat,userLng]}/>
             </div>
+            <div style={{zIndex:1, margin:'auto', position:'absolute'}}>
             {this.state.switchButton ? <SwitchViewButton switchView={()=>this.switchView()} getView={()=>this.state.viewList}/>:" "}
-            <div style={{zIndex:1, bottom:'2%', right:'10%', position:'absolute', padding:'10px'}}>
+            </div>
+            <div style={{zIndex:1, bottom:'2%', right:'2%', position:'absolute', padding:'10px'}}>
                         <FloatingActionButton
                           backgroundColor='#000000'
                           containerElement={<Link to="/AddResource" />}>
