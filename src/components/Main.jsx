@@ -60,7 +60,6 @@ export default class Main extends React.Component {
     }
 
     searchSizer() {
-        var offsetHeight = document.getElementById('content').clientHeight
         var offsetWidth = document.getElementById('content').clientWidth
 
         var resultWidth, mapWidth;
@@ -78,7 +77,7 @@ export default class Main extends React.Component {
          mapWidth=offsetWidth*0.60;
          resultWidth=offsetWidth*0.40;
         }
-        this.setState({ mapWidth, resultWidth, offsetHeight, offsetWidth});
+        this.setState({ mapWidth, resultWidth, offsetWidth});
     }
 
     getSearchString() {
@@ -96,7 +95,8 @@ export default class Main extends React.Component {
                 getPageLoading,
                 userLat,
                 userLng } = this.props;
-        var { mapWidth, resultWidth, offsetHeight, offsetWidth} = this.state;
+        var { mapWidth, resultWidth, offsetWidth} = this.state;
+        var offsetHeight = document.getElementById('content').clientHeight;
         if (mapWidth=== undefined) {
             return null;
         }

@@ -749,9 +749,11 @@ getAppBar() {
             <MuiThemeProvider muiTheme={getMuiTheme()}>
           <div id='wrapper' style={styles.wrapper}>
 
+          <div id='header'>
           {this.getAppBar()}
 
           {this.getSearchMenu()}
+          </div>
 
           <div ref='content' id='content'>
           <CSSTransitionGroup transitionName='slide'
@@ -810,7 +812,7 @@ getAppBar() {
                             addFlag={()=>this.addFlag(a,b)}/>
               )} />
               <Route exact path="/home" render={(props) => (
-                  <Main {...props} container={this.refs.content}
+                  <Main {...props} container={this.refs.wrapper}
                                              footer={this.refs.footer}
                                              displayResult={(result) => this.displayResult(result)}
                                              displaySearch={() => this.displaySearch()}
